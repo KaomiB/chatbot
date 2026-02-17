@@ -202,18 +202,6 @@ with st.sidebar:
                 chosen_label = t.label
                 break
         st.session_state.pending_prompt = chosen_label
-    # Multiple choice: "Not sure what to ask?"
-    st.caption("Not sure what to ask?")
-    quick_picks = [
-        ("I'm new to HSAs", "What is an HSA?"),
-        ("I want to save on taxes", "What is the triple tax advantage?"),
-        ("What can I use it for?", "What can I spend it on?"),
-        ("I'm young / on my parents' plan", "Why does this matter for me?"),
-        ("Clear up HSA myths", "Common HSA myths"),
-    ]
-    for i, (label, topic_label) in enumerate(quick_picks):
-        st.button(label, key=f"quick_{i}",
-                  on_click=_set_pending, args=(topic_label,))
 
 # Process pending prompt from a topic button click
 if st.session_state.pending_prompt is not None:
