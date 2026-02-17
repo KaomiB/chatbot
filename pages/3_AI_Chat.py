@@ -17,8 +17,8 @@ Rules:
 - If someone seems overwhelmed (asks multiple questions at once, says "I don't understand any of this"), respond to only ONE thing and say: "Let's just focus on this one piece first."
 - Never make the person feel behind or like they've made a mistake"""
 
-st.set_page_config(page_title="AI Chat", page_icon="🤖")
-st.title("AI Chat")
+st.set_page_config(page_title="AI Chat (WIP)", page_icon="🤖")
+st.title("AI Chat (WIP)")
 st.caption("Ask in your own words. This is the only place with real conversational AI.")
 
 # Get API key from Streamlit secrets

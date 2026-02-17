@@ -54,7 +54,7 @@ if scenario_id is None:
             if opt.get("link") == "task_breaker" and opt.get("task_id"):
                 if st.button(opt["title"], key=f"more_{opt['id']}", use_container_width=True):
                     st.session_state.task_breaker_preload_task_id = opt["task_id"]
-                    st.switch_page("pages/2_Task_Breaker.py")
+                    st.switch_page("pages/1_Task_Breaker.py")
             elif opt.get("id") == "D2":
                 if st.button(opt["title"], key=f"more_{opt['id']}", use_container_width=True):
                     st.session_state.tradeoff_scenario_id = "D2"
@@ -83,7 +83,7 @@ if len(questions) == 0 and q_index == 0:
         if result.get("next_task_id"):
             if st.button(result.get("next_label", "Next step →"), key="res_next"):
                 st.session_state.task_breaker_preload_task_id = result["next_task_id"]
-                st.switch_page("pages/2_Task_Breaker.py")
+                st.switch_page("pages/1_Task_Breaker.py")
         if result.get("next_goes_to"):
             if st.button(result.get("next_label", "Next step →"), key="res_next"):
                 st.session_state.tradeoff_scenario_id = result["next_goes_to"]
@@ -117,7 +117,7 @@ if scenario_id == "D2" and q_index == 999:
         st.session_state.tradeoff_q_index = 0
         st.rerun()
     if st.button("I need to do something specific but I'm not sure how to start", use_container_width=True, key="d2_tb"):
-        st.switch_page("pages/2_Task_Breaker.py")
+        st.switch_page("pages/1_Task_Breaker.py")
     st.button("← Start over", on_click=start_over)
     st.stop()
 
@@ -134,7 +134,7 @@ if at_result:
         if result.get("next_task_id"):
             if st.button("Next step →", key="res_next"):
                 st.session_state.task_breaker_preload_task_id = result["next_task_id"]
-                st.switch_page("pages/2_Task_Breaker.py")
+                st.switch_page("pages/1_Task_Breaker.py")
     with c2:
         if result.get("learn_more_topic_id"):
             if st.button("Learn more →", key="res_learn"):

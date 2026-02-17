@@ -126,8 +126,8 @@ def _set_pending(label: str):
 
 
 # Page config and title (topics/facts, not chat)
-st.set_page_config(page_title="HSA topics", page_icon="📋")
-st.title("HSA topics")
+st.set_page_config(page_title="Explore HSA by topic", page_icon="📋")
+st.title("Explore HSA by topic")
 st.caption("Explore by topic — pick what fits. No account needed.")
 
 # Session state: list of {role, content, citations?, topic_id?}; topic_id = for "You might also ask" buttons
