@@ -1,0 +1,3 @@
+# Minimal deps for quick cloud deploy (scripted + prebaked answers only; no RAG).
+# Use this for Streamlit Community Cloud so the app builds fast.
+streamlit>=1.28.0

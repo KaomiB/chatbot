@@ -1,0 +1,260 @@
+"""
+HSA topics: explore by topic (no chat — pre-recorded answers from content script, pre-baked Q&A, or retrieval).
+"""
+import re
+import streamlit as st
+
+from config import CHATBOT_MODE
+from content_script import (
+    get_all_topics,
+    get_topic_by_id,
+    get_topic_by_label,
+    get_topic_by_suggested_question,
+    get_topic_difficulty,
+    get_topics_by_difficulty_filter,
+    get_welcome_topics,
+)
+
+# Welcome: 5 default topic buttons (what_is_hsa, young_adults, triple_tax, misconceptions, qualified_expenses).
+WELCOME_TOPICS = [t.label for t in get_welcome_topics()]
+
+
+def _format_suggested_topics(labels: list[str]) -> str:
+    return "\n".join(f"- {t}" for t in labels)
+
+# Greeting triggers (normalized).
+GREETING_PATTERNS = re.compile(
+    r"^(hi|hello|hey|howdy|hiya|yo|greetings|good\s*(morning|afternoon|evening)|hey\s+there|what'?s\s+up|sup)[\s!.]*$",
+    re.IGNORECASE,
+)
+
+WELCOME_MESSAGE = f"""Hi! I'm here to help with **Health Savings Account (HSA)** questions.
+
+You can ask me about:
+
+{_format_suggested_topics(WELCOME_TOPICS)}
+
+Type a question below or pick a topic to get started."""
+
+GREETING_RESPONSE = f"""Hi! I'm here to help with HSA questions.
+
+Here are some things you can ask:
+
+{_format_suggested_topics(WELCOME_TOPICS)}"""
+
+# Fallbacks: redirect to suggested topics instead of technical messages.
+FALLBACK_NO_INDEX = f"""I don't have an answer from the knowledge base right now, but here are topics I can help with once the index is built:
+
+{_format_suggested_topics(WELCOME_TOPICS)}
+
+*Tip: Run `python memory_builder.py` from the project folder to index the HSA docs.*"""
+
+FALLBACK_NO_MATCH = f"""I couldn't find anything about that in my knowledge base. Here are topics I can help with:
+
+{_format_suggested_topics(WELCOME_TOPICS)}
+
+Try asking one of these, or rephrase your question."""
+
+
+def _is_greeting(text: str) -> bool:
+    t = text.strip()
+    if not t or len(t) > 80:
+        return False
+    if GREETING_PATTERNS.match(t):
+        return True
+    # Very short and only common greeting-like words
+    words = set(t.lower().split())
+    return words <= {"hi", "hello", "hey", "howdy", "yo", "sup", "hiya"} and len(words) <= 3
+
+
+def get_assistant_response(user_message: str) -> tuple[str, list[str], "Topic | None"]:
+    """
+    Return (reply_text, citations, topic_used).
+    topic_used is set when we match by label or suggested_question so the UI can show "Related topics" buttons.
+    Order: greeting -> exact label -> suggested_question match -> pre-baked -> retrieval/LLM.
+    """
+
+    # Greeting
+    if _is_greeting(user_message):
+        return GREETING_RESPONSE, [], None
+
+    # Exact match to a suggested topic button (label)
+    topic = get_topic_by_label(user_message)
+    if topic:
+        return topic.answer, list(topic.citations), topic
+
+    # Free-text match to any topic's suggested_questions
+    topic = get_topic_by_suggested_question(user_message)
+    if topic:
+        return topic.answer, list(topic.citations), topic
+
+    # Pre-baked Q&A (keyword match)
+    try:
+        from prebaked_qa import get_prebaked_answer
+        prebaked = get_prebaked_answer(user_message)
+        if prebaked:
+            return prebaked, [], None
+    except Exception:
+        pass
+
+    # Knowledge-only retrieval (no LLM)
+    if CHATBOT_MODE == "knowledge_only":
+        try:
+            from rag import knowledge_only_response
+            reply, citations = knowledge_only_response(user_message)
+            if reply:
+                return reply, citations, None
+            return FALLBACK_NO_MATCH, [], None
+        except Exception:
+            return FALLBACK_NO_INDEX, [], None
+
+    # LLM mode
+    if CHATBOT_MODE == "llm":
+        try:
+            from rag import rag_response
+            reply = rag_response(user_message)
+            if reply:
+                return reply, [], None
+        except Exception:
+            pass
+    return FALLBACK_NO_MATCH, [], None
+
+
+def _set_pending(label: str):
+    """Callback for topic buttons — sets pending_prompt before Streamlit reruns."""
+    st.session_state.pending_prompt = label
+
+
+# Page config and title (topics/facts, not chat)
+st.set_page_config(page_title="HSA topics", page_icon="📋")
+st.title("HSA topics")
+st.caption("Explore by topic — pick what fits. No account needed.")
+
+# Session state: list of {role, content, citations?, topic_id?}; topic_id = for "You might also ask" buttons
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+    st.session_state.messages.append({"role": "assistant", "content": WELCOME_MESSAGE, "citations": [], "topic_id": None})
+
+# Topic buttons: clicking one sends that question (set as pending so we process on rerun)
+if "pending_prompt" not in st.session_state:
+    st.session_state.pending_prompt = None
+
+# Render chat history
+for idx, msg in enumerate(st.session_state.messages):
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
+        # Related topics first (so first click hits a topic, not the expander)
+        if msg["role"] == "assistant" and msg.get("topic_id"):
+            topic = get_topic_by_id(msg["topic_id"])
+            if topic and topic.next_suggested_topics:
+                st.caption("Related topics:")
+                follow_cols = st.columns(min(3, len(topic.next_suggested_topics)))
+                for i, next_id in enumerate(topic.next_suggested_topics):
+                    next_t = get_topic_by_id(next_id)
+                    if next_t:
+                        with follow_cols[i % len(follow_cols)]:
+                            st.button(next_t.label, key=f"follow_{idx}_{next_id}",
+                                      on_click=_set_pending, args=(next_t.label,))
+                st.caption("**Next:** Break a task into steps → **Task Breaker** · Ask in your own words → **AI Chat** (sidebar).")
+        if msg["role"] == "assistant" and msg.get("citations"):
+            with st.expander("Sources / citations"):
+                for c in msg["citations"]:
+                    st.caption(c)
+
+# Suggested topic buttons: welcome 5 only
+if len(st.session_state.messages) >= 1:
+    st.caption("Suggested topics")
+    cols = st.columns(2)
+    for i, topic_label in enumerate(WELCOME_TOPICS):
+        with cols[i % 2]:
+            st.button(topic_label, key=f"topic_{i}",
+                      on_click=_set_pending, args=(topic_label,))
+
+# Other ways to interact: sidebar (with difficulty filter)
+with st.sidebar:
+    st.subheader("Browse topics")
+    difficulty_filter = st.selectbox(
+        "Filter by pace",
+        options=["All", "Good starting point", "A little more detail", "When you're ready"],
+        key="sidebar_difficulty_filter",
+    )
+    filtered_topics = get_topics_by_difficulty_filter(
+        None if difficulty_filter == "All" else difficulty_filter
+    )
+    # Build options: "🟢 What is an HSA?" etc.
+    topic_options = ["— Pick a topic —"] + [
+        f"{get_topic_difficulty(t.id)['emoji']} {t.label}" if get_topic_difficulty(t.id) else t.label
+        for t in filtered_topics
+    ]
+    chosen_display = st.selectbox(
+        "All topics" if difficulty_filter == "All" else difficulty_filter,
+        options=topic_options,
+        key="sidebar_topic_select",
+    )
+    if st.button("Go to topic", key="sidebar_go") and chosen_display and chosen_display != "— Pick a topic —":
+        chosen_label = chosen_display
+        for t in get_all_topics():
+            d = get_topic_difficulty(t.id)
+            if d and chosen_display == f"{d['emoji']} {t.label}":
+                chosen_label = t.label
+                break
+            elif chosen_display == t.label:
+                chosen_label = t.label
+                break
+        st.session_state.pending_prompt = chosen_label
+    # Multiple choice: "Not sure what to ask?"
+    st.caption("Not sure what to ask?")
+    quick_picks = [
+        ("I'm new to HSAs", "What is an HSA?"),
+        ("I want to save on taxes", "What is the triple tax advantage?"),
+        ("What can I use it for?", "What can I spend it on?"),
+        ("I'm young / on my parents' plan", "Why does this matter for me?"),
+        ("Clear up HSA myths", "Common HSA myths"),
+    ]
+    for i, (label, topic_label) in enumerate(quick_picks):
+        st.button(label, key=f"quick_{i}",
+                  on_click=_set_pending, args=(topic_label,))
+
+# Process pending prompt from a topic button click
+if st.session_state.pending_prompt is not None:
+    prompt = st.session_state.pending_prompt
+    st.session_state.pending_prompt = None
+else:
+    prompt = st.chat_input("Ask about HSAs...")
+
+if prompt:
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    # Show the user's selection/question in this run (otherwise it only appears after the next action)
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    full_reply, citations, topic_used = get_assistant_response(prompt)
+    # Append assistant message *before* rendering follow-up buttons, so clicking a
+    # follow-up and rerunning doesn't drop this reply from history
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": full_reply,
+        "citations": citations,
+        "topic_id": topic_used.id if topic_used else None,
+    })
+    with st.chat_message("assistant"):
+        st.markdown(full_reply)
+        if topic_used and topic_used.next_suggested_topics:
+            st.caption("Related topics:")
+            follow_cols = st.columns(min(3, len(topic_used.next_suggested_topics)))
+            for i, next_id in enumerate(topic_used.next_suggested_topics):
+                next_t = get_topic_by_id(next_id)
+                if next_t:
+                    with follow_cols[i % len(follow_cols)]:
+                        st.button(next_t.label, key=f"follow_new_{next_id}",
+                                  on_click=_set_pending, args=(next_t.label,))
+            st.caption("**Next:** Break a task into steps → **Task Breaker** · Ask in your own words → **AI Chat** (sidebar).")
+        if citations:
+            with st.expander("Sources / citations"):
+                for c in citations:
+                    st.caption(c)
+
+# Footer: gentle permission to leave + no dead ends
+st.divider()
+st.caption("There's a lot here. Bookmarking one topic and coming back is completely fine.")
+st.caption("**Explore:** Task Breaker (break tasks into steps) · AI Chat (ask in your own words) — use the sidebar.")
