@@ -19,9 +19,9 @@ streamlit run HSA_Topics.py
 
 See [GETTING_STARTED.md](GETTING_STARTED.md) for more detail.
 
-## Deploy (Streamlit Community Cloud)
+## Deploy (Streamlit Community Cloud.)
 
-1. Push this repo to GitHub.
+1. Push this repo to GitHub .
 2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub, and create a **New app**.
 3. Set **Main file path** to `HSA_Topics.py`.
 4. Add secrets in the Cloud dashboard (e.g. `OPENAI_API_KEY`) if you want AI Chat. See [DEPLOY.md](DEPLOY.md).
