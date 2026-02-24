@@ -18,7 +18,7 @@ class Topic:
 TOPICS: list[Topic] = [
     Topic(
         id="what_is_hsa",
-        label='What is an HSA?',
+        label='What is a Health Savings Account?',
         answer='A Health Savings Account (HSA) is a special savings account where you\nset money aside — before taxes — to pay for healthcare expenses. The\nsimplest way to think about it: it\'s like a 401(k), but for healthcare\ninstead of retirement.\n\nYou and your employer can both contribute to your HSA, and you use\nthose funds tax-free to pay for a wide range of qualified medical\nexpenses — doctor visits, prescriptions, dental work, vision care,\nmental health therapy, and much more. You decide what to spend, what\nto save, and how to invest it.\n\nThe biggest thing that separates an HSA from other health accounts:\nthe money never expires. There is no "use it or lose it" rule. Your\nbalance rolls over every single year and keeps growing — whether you\nneed it next month or in retirement decades from now.',
         citations=['HealthEquity HSA Guidebook, p. 25', 'HSAs For Dummies, Optum Financial Special Edition, Introduction, p. 1', 'WageWorks Guide to HSAs, p. 8'],
         suggested_questions=['What is an HSA?', "What's an HSA?", 'Explain HSA to me', 'What does HSA stand for?', "I've never heard of an HSA", 'What is a health savings account?'],
@@ -99,7 +99,7 @@ TOPICS: list[Topic] = [
     Topic(
         id="contribution_limits",
         label='Contribution limits',
-        answer='The IRS sets annual limits on how much can go into your HSA — from\nall sources combined (you, your employer, family members, anyone).\nThese limits adjust each year based on inflation.\n\nFor 2025, the limits are:\n- Self-only coverage: $4,300\n- Family coverage: $8,750\n- Catch-up contribution if you are 55 or older: an extra $1,000\n\nNo matter who contributes, the combined total from all sources cannot\nexceed the annual limit. Only your own contributions and your\nemployer\'s contributions receive the direct tax benefit at the time\nof contribution. Contributions from others (like family members) can\nbe claimed as an above-the-line deduction on your tax return.\n\nIf you exceed the limit — even because of an employer contribution —\nyou will owe a 6% excise tax on the excess. If you open your HSA\nmid-year, you can still contribute the full year\'s maximum using the\n"last-month rule," but you must remain eligible through the end of\nthe following year or face taxes and a 10% penalty on any overage.',
+        answer='The IRS sets annual limits on how much can go into your HSA — from\nall sources combined (you, your employer, family members, anyone).\nThese limits adjust each year based on inflation.\n\nFor 2025, the limits are:\n- Self-only coverage: \$4,300\n- Family coverage: \$8,750\n- Catch-up contribution if you are 55 or older: an extra \$1,000\n\nNo matter who contributes, the combined total from all sources cannot\nexceed the annual limit. Only your own contributions and your\nemployer\'s contributions receive the direct tax benefit at the time\nof contribution. Contributions from others (like family members) can\nbe claimed as an above-the-line deduction on your tax return.\n\nIf you exceed the limit — even because of an employer contribution —\nyou will owe a 6% excise tax on the excess. If you open your HSA\nmid-year, you can still contribute the full year\'s maximum using the\n"last-month rule," but you must remain eligible through the end of\nthe following year or face taxes and a 10% penalty on any overage.',
         citations=['HealthEquity HSA Guidebook, p. 38', 'HealthEquity HSA Guidebook, pp. 77–79, 96', 'HSAs For Dummies, Optum Financial Special Edition, p. 13'],
         suggested_questions=['How much can I put in my HSA?', 'What are the HSA contribution limits?', 'Is there a max for HSA contributions?', 'How much can I contribute to an HSA per year?', 'Can my employer also contribute to my HSA?', 'What happens if I contribute too much to my HSA?'],
         next_suggested_topics=['funding_strategy', 'investment', 'triple_tax'],
@@ -107,7 +107,7 @@ TOPICS: list[Topic] = [
     Topic(
         id="investment",
         label='Investing my HSA',
-        answer='Yes — and this is the most underused HSA feature. You can invest your\nHSA balance in stocks, bonds, mutual funds, and certificates of\ndeposit, similar to an IRA or 401(k). Your investment earnings grow\nentirely tax-free.\n\nMost HSA administrators allow investing once your cash balance reaches\na minimum threshold — typically $1,000 to $2,000. Any amount above\nthat threshold can be moved into investment options. If you need funds\nfor a medical expense, you can move money back to cash at any time\nwith no tax penalty.\n\nThe math is compelling: saving $3,000 per year for 30 years without\ninvesting accumulates to about $90,000. Invested at a 7% average\nannual return, that same $3,000 per year grows to approximately\n$306,000 — over $200,000 more, all tax-free for qualified expenses.\n\nDespite this potential, only 9–15% of HSA holders invest their funds;\nmost accounts sit in cash. If you can afford to pay current medical\nexpenses out of pocket, letting your HSA balance grow invested is one\nof the most powerful financial moves available to young adults.',
+        answer='Yes — and this is the most underused HSA feature. You can invest your\nHSA balance in stocks, bonds, mutual funds, and certificates of\ndeposit, similar to an IRA or 401(k). Your investment earnings grow\nentirely tax-free.\n\nMost HSA administrators allow investing once your cash balance reaches\na minimum threshold — typically \$1,000 to \$2,000. Any amount above\nthat threshold can be moved into investment options. If you need funds\nfor a medical expense, you can move money back to cash at any time\nwith no tax penalty.\n\nThe math is compelling: saving \$3,000 per year for 30 years without\ninvesting accumulates to about \$90,000. Invested at a 7% average\nannual return, that same \$3,000 per year grows to approximately\n\$306,000 — over \$200,000 more, all tax-free for qualified expenses.\n\nDespite this potential, only 9–15% of HSA holders invest their funds;\nmost accounts sit in cash. If you can afford to pay current medical\nexpenses out of pocket, letting your HSA balance grow invested is one\nof the most powerful financial moves available to young adults.',
         citations=['HealthEquity HSA Guidebook, pp. 66, 127–129', 'HSAs For Dummies, Optum Financial Special Edition, p. 20', 'WageWorks Guide to HSAs, p. 64', 'Behavioral Architecture of Financial Avoidance research document'],
         suggested_questions=['Can I invest my HSA?', 'How do I invest my HSA money?', 'Does my HSA earn interest?', 'Can my HSA grow like a retirement account?', 'What investment options does an HSA have?', 'Should I invest my HSA?'],
         next_suggested_topics=['hsa_vs_other', 'funding_strategy', 'retirement_planning'],
@@ -147,7 +147,7 @@ TOPICS: list[Topic] = [
     Topic(
         id="age_65_medicare",
         label='HSA at age 65 & Medicare',
-        answer="At age 65, your HSA becomes even more flexible. You can still use it\ntax-free for any qualified medical expense. But you can now also use\nit for non-medical expenses without penalty — you'll just pay ordinary\nincome tax on those withdrawals, the same as a traditional IRA.\n\nOnce you enroll in Medicare, you can no longer make new HSA\ncontributions. But your existing balance remains available. You can\nuse it to pay Medicare premiums for Parts A, B, C (Medicare\nAdvantage), and D (prescription drugs) — as well as copays and\ncoinsurance. The one exception: HSA funds cannot pay for a Medigap\n(Medicare supplement) policy.\n\nIf you delay Medicare past 65 and keep an HSA-qualified health plan,\nyou can keep contributing — including the $1,000 catch-up\ncontribution — for as long as you remain eligible.\n\nFor married couples where both spouses are 55 or older, each can\nmake their own $1,000 catch-up contribution. Each spouse must have\ntheir own separate HSA account for this to work.",
+        answer="At age 65, your HSA becomes even more flexible. You can still use it\ntax-free for any qualified medical expense. But you can now also use\nit for non-medical expenses without penalty — you'll just pay ordinary\nincome tax on those withdrawals, the same as a traditional IRA.\n\nOnce you enroll in Medicare, you can no longer make new HSA\ncontributions. But your existing balance remains available. You can\nuse it to pay Medicare premiums for Parts A, B, C (Medicare\nAdvantage), and D (prescription drugs) — as well as copays and\ncoinsurance. The one exception: HSA funds cannot pay for a Medigap\n(Medicare supplement) policy.\n\nIf you delay Medicare past 65 and keep an HSA-qualified health plan,\nyou can keep contributing — including the \$1,000 catch-up\ncontribution — for as long as you remain eligible.\n\nFor married couples where both spouses are 55 or older, each can\nmake their own \$1,000 catch-up contribution. Each spouse must have\ntheir own separate HSA account for this to work.",
         citations=['HealthEquity HSA Guidebook, pp. 77–78', 'WageWorks Guide to HSAs, p. 75'],
         suggested_questions=['What happens to my HSA when I turn 65?', 'Can I use my HSA in retirement?', 'Does Medicare affect my HSA?', 'Can I use my HSA to pay Medicare premiums?', 'What happens to my HSA when I enroll in Medicare?'],
         next_suggested_topics=['retirement_planning', 'portability', 'investment'],
@@ -155,7 +155,7 @@ TOPICS: list[Topic] = [
     Topic(
         id="retirement_planning",
         label='HSA for retirement',
-        answer='Retirement healthcare costs are one of the biggest financial risks\nmost people underestimate. According to the Employee Benefit Research\nInstitute (EBRI), a married couple with average prescription drug\nneeds will need approximately $366,000 to cover out-of-pocket medical\nexpenses in retirement.\n\nAn HSA is uniquely positioned to address this. Unlike a 401(k) or\nIRA, HSA withdrawals for healthcare are never taxed — even in\nretirement. If you invest your HSA contributions throughout your\nworking years, those funds can grow substantially, entirely tax-free.\n\nYoung people just starting their careers have the greatest advantage:\ndecades of tax-free compounding ahead of them. Even modest regular\ncontributions, invested over time, can make a significant difference.\nIt is never too early — or too late — to start.\n\nAfter age 65, HSA funds can also be used penalty-free for non-medical\nexpenses (taxed as ordinary income), giving you a flexible additional\nreserve alongside your 401(k) and Social Security.',
+        answer='Retirement healthcare costs are one of the biggest financial risks\nmost people underestimate. According to the Employee Benefit Research\nInstitute (EBRI), a married couple with average prescription drug\nneeds will need approximately \$366,000 to cover out-of-pocket medical\nexpenses in retirement.\n\nAn HSA is uniquely positioned to address this. Unlike a 401(k) or\nIRA, HSA withdrawals for healthcare are never taxed — even in\nretirement. If you invest your HSA contributions throughout your\nworking years, those funds can grow substantially, entirely tax-free.\n\nYoung people just starting their careers have the greatest advantage:\ndecades of tax-free compounding ahead of them. Even modest regular\ncontributions, invested over time, can make a significant difference.\nIt is never too early — or too late — to start.\n\nAfter age 65, HSA funds can also be used penalty-free for non-medical\nexpenses (taxed as ordinary income), giving you a flexible additional\nreserve alongside your 401(k) and Social Security.',
         citations=['HealthEquity HSA Guidebook, pp. 8–9, 118'],
         suggested_questions=['Can I use my HSA for retirement?', 'How does an HSA help with retirement savings?', 'Should I use my HSA as a retirement account?', 'How much will I need for healthcare in retirement?', 'Is an HSA a good long-term savings tool?'],
         next_suggested_topics=['investment', 'age_65_medicare', 'hsa_vs_other'],
@@ -200,9 +200,222 @@ TOPICS: list[Topic] = [
         suggested_questions=['How do I open an HSA?', 'Where can I get an HSA?', 'How do I start an HSA?', 'Can I open an HSA on my own?', 'Do I open my HSA through my employer?'],
         next_suggested_topics=['eligibility', 'contribution_limits', 'funding_strategy'],
     ),
+    # Scenario-based welcome topics (suggested on HSA Topics page)
+    Topic(
+        id="understanding_hsa",
+        label='What is an HSA?',
+        answer='An HSA (Health Savings Account) is a tax-advantaged savings account for\nqualified medical expenses. You must be enrolled in a high-deductible\nhealth plan (HDHP) to contribute. You and your employer can both put\nmoney in; contributions go in tax-free and funds roll over every year with\nno expiration. You can use it for current healthcare costs or save for\nfuture medical needs.',
+        citations=['HealthEquity HSA Guidebook, p. 25', 'WageWorks Guide to HSAs, p. 8'],
+        suggested_questions=['What is an HSA?', 'Explain HSAs', 'Understanding Health Savings Accounts'],
+        next_suggested_topics=['hsa_awareness_basic', 'confusion_eligibility'],
+    ),
+    Topic(
+        id="contribute_decisions",
+        label='Should I Put Money Into an HSA?',
+        answer='Introduction on whether to contribute to an HSA. Your situation — employer\nmatch, debt, cash flow — affects the answer. Choose a topic below to explore\nbenefits and trade-offs, whether an HSA is worth it for you, or how much to contribute.',
+        citations=['HealthEquity HSA Guidebook, pp. 38, 49, 118–119'],
+        suggested_questions=['Should I contribute to an HSA?', 'How much should I put in my HSA?', 'Decisions about HSA contributions'],
+        next_suggested_topics=['whether_to_contribute', 'is_hsa_worth_it', 'how_much_to_contribute'],
+    ),
+    Topic(
+        id="using_hsa",
+        label='How to Use Your HSA',
+        answer='You can use your HSA to pay for qualified medical expenses — with your\nHSA card at the point of care or by reimbursing yourself after paying\nout of pocket. You can also use it for your spouse and tax dependents.\nChoose a topic below to go deeper.',
+        citations=['HealthEquity HSA Guidebook, p. 183', 'WageWorks Guide to HSAs, p. 67'],
+        suggested_questions=['How do I use my HSA?', 'What can I pay for with my HSA?', 'Using the HSA for expenses'],
+        next_suggested_topics=['what_expenses_qualify', 'saving_vs_spending_hsa'],
+    ),
+    Topic(
+        id="long_term_planning",
+        label='Long-Term HSA Strategy',
+        answer='Introduction to saving for future medical costs. An HSA can help you\nprepare for rising healthcare expenses and retirement. Choose a topic below to\nexplore long-term value or investing your HSA funds.',
+        citations=['HealthEquity HSA Guidebook, pp. 8–9, 77–78, 118'],
+        suggested_questions=['HSA for retirement?', 'Long-term healthcare planning with HSA', 'Healthcare in retirement'],
+        next_suggested_topics=['long_term_value_hsa', 'investing_hsa_funds'],
+    ),
+    Topic(
+        id="emotional_support",
+        label='Smart Healthcare Money Decisions',
+        answer='**Smart Healthcare Money Decisions**\n\nMany people struggle to manage healthcare and money together — from understanding\nplan options to saving for future costs. Research shows a large share of adults\nfind it hard to make confident decisions about HSAs and healthcare spending.\nChoose a topic below to address uncertainty or feeling overwhelmed by options.',
+        citations=['Generational HSA Divide research document', 'Behavioral Architecture of Financial Avoidance research document'],
+        suggested_questions=['I\'m unsure about getting an HSA', 'Emotional support for HSA decisions', 'Is an HSA right for me?'],
+        next_suggested_topics=['uncertainty_hsa', 'overwhelmed_by_options'],
+    ),
+    Topic(
+        id="tradeoff_support",
+        label='Is an HSA Worth It for Me?',
+        answer='When comparing options, the HSA is the only U.S. account that combines\nall three tax benefits: tax-free contributions, tax-free growth, and\ntax-free withdrawals for qualified expenses. No 401(k), IRA, or FSA\noffers all three.\n\nHSA vs 401(k): HSA payroll contributions skip FICA taxes; 401(k)\nwithdrawals are taxed in retirement — HSA withdrawals for medical expenses\nare not. HSA vs FSA: FSA has use-it-or-lose-it; HSA funds roll over\nindefinitely. If you can afford to pay current medical costs out of\npocket, maxing your HSA and investing the balance is one of the most\npowerful moves available.',
+        citations=['HealthEquity HSA Guidebook, pp. 5–6, 29', 'WageWorks Guide to HSAs, p. 15'],
+        suggested_questions=['HSA vs 401k?', 'HSA or FSA?', 'Tradeoffs of choosing an HSA'],
+        next_suggested_topics=['hsa_vs_other', 'triple_tax', 'funding_strategy'],
+    ),
+    Topic(
+        id="behavioral_nudges",
+        label='Behavioral Nudges and Education',
+        answer='**Encouraging Active & Smart HSA Use**\n\nSmall steps and gentle nudges can help you get more from your HSA. Choose the\npath below that fits you: rarely think about your HSA, or you contribute but\nwant to understand how it helps.',
+        citations=['Generational HSA Divide research document', 'Behavioral Architecture of Financial Avoidance research document', 'HealthEquity HSA Guidebook, pp. 118–119'],
+        suggested_questions=['How do I get started with an HSA?', 'Tips for using my HSA better', 'Behavioral nudges for HSA'],
+        next_suggested_topics=['hsa_rarely_think', 'contribute_dont_understand'],
+    ),
+    # Follow-up choices after "Tips to Save and Use Your HSA Wisely"
+    Topic(
+        id="hsa_rarely_think",
+        label='I have an HSA but I rarely think about it.',
+        answer="**1. Gentle reminders**\n\n- (a) Monthly check-in: a quick notification to look at your HSA.\n- (b) Prompt: \"You haven't used your HSA this month\" — not to pressure you, but to surface it so you can use it for a qualified expense or simply check your balance.\n\n**2. Periodic check-ins**\n\n- (a) Quick quarterly review: set a reminder every few months to log in and see your balance and contribution rate.\n- (b) Example prompt: \"Want a 60-second HSA balance check?\" — one small step to stay aware.\n\n**3. Highlight benefits of active use**\n\n- (a) Remind yourself of the triple tax advantage: money in tax-free, grows tax-free, comes out tax-free for medical expenses.\n- (b) Show potential long-term impact: e.g. contributing \$100/month for 20 years can grow to a substantial sum if invested, all available for healthcare.\n\n**4. Micro-action prompts**\n\n- (a) \"Set \$20 auto-contribution?\" — a small automatic amount builds the habit without much effort.\n- (b) \"Save receipt now?\" — when you pay a medical bill, snap and store the receipt so you can reimburse yourself later and let the HSA keep growing.",
+        citations=['Behavioral Architecture of Financial Avoidance research document', 'HealthEquity HSA Guidebook, pp. 118–119'],
+        suggested_questions=['I forget about my HSA', 'Rarely use my HSA', 'HSA reminders'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    Topic(
+        id="contribute_dont_understand",
+        label="I contribute, but I don't really understand how it helps.",
+        answer="**1. Break benefits into simple visuals**\n\n- Tax savings example: e.g. \"A \$1,000 HSA contribution might only cost you ~\$700 after tax savings (depending on your bracket).\"\n- Future value projection: e.g. contributing \$3,000/year for 25 years at 5% growth could grow to over \$140,000 for future healthcare.\n\n**2. Mini education moments**\n\n- 1-sentence tip cards you can revisit: \"Contributions are tax-free in, growth is tax-free, withdrawals for medical expenses are tax-free.\"\n- \"Did you know? HSAs never expire — your balance rolls over every year.\"\n\n**3. Behavioral framing**\n\n- *Loss aversion:* Your annual contribution limit resets each year — unused contribution space doesn't carry over. So using this year's \"space\" is an opportunity.\n- *Future-self framing:* \"This could cover retirement medical costs\" — the money you put in now can compound for decades and pay for healthcare when you're older.\n\n**4. Small optimization tips**\n\n- \"Increase by \$10/month?\" — a small bump (e.g. \$10 more per month) adds up and often goes unnoticed in your budget.\n- \"Invest after \$1,000 balance?\" — many providers let you invest once your cash balance reaches \$1,000; the rest can grow in the market for long-term healthcare savings.",
+        citations=['HealthEquity HSA Guidebook, pp. 66, 118–119, 127–129', 'WageWorks Guide to HSAs, p. 64'],
+        suggested_questions=["Don't understand HSA benefits", 'How does my HSA help?', 'HSA education'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    # Follow-up choices after "Smart Healthcare Money Decisions"
+    Topic(
+        id="uncertainty_hsa",
+        label='Uncertainty of HSA',
+        answer="**Normalize uncertainty**\n\nIt's normal to feel unsure about HSAs. Many people do — only a small share of\nadults can correctly explain all three tax benefits. Feeling uncertain doesn't\nmean you're behind; it means you're paying attention.\n\n**Structured decision guide**\n\nA simple way to decide: (1) Check if you're eligible (HDHP, no disqualifying\ncoverage). (2) See if your employer offers a match — if yes, contribute at least\nenough to get it. (3) Decide how much more you can save based on your budget.\n\n- *Real-world examples:*\n  - Employer match \$600/year → contribute \$50/month (\$600/year) to capture it.\n  - Income ~\$50,000, no match → start with \$75/paycheck (biweekly) ≈ \$1,950/year.\n  - Family coverage, match \$1,000 → contribute \$84/month to get the match; add more if budget allows.\n  - Part-time: \$25/paycheck ≈ \$650/year still builds tax-advantaged savings.\n\n**Reinforce flexibility**\n\nYou can change your contribution amount anytime. HSA funds never expire. If your\nsituation changes — new job, different plan, tight month — you can adjust.\nThere's no single \"right\" path.\n\n**Suggest starting small**\n\nYou don't need to max out your HSA to benefit. Even small, consistent\ncontributions add up and reduce your tax bill. *Example:* Someone earning \$45,000\nmight start with \$25 or \$50 per paycheck; that's \$600–\$1,200 per year in\ntax-advantaged savings and builds the habit without straining the budget.",
+        citations=['Generational HSA Divide research document', 'Behavioral Architecture of Financial Avoidance research document'],
+        suggested_questions=['Uncertain about HSA', 'HSA uncertainty', 'Not sure about HSA'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    Topic(
+        id="overwhelmed_by_options",
+        label='Feeling Overwhelmed by Options',
+        answer="**Break HSA into simple steps**\n\nInstead of tackling everything at once, focus on one step: (1) Confirm you're\neligible. (2) Open or link your HSA. (3) Set a first contribution amount.\n(4) Later, look at investing if your balance and comfort allow. You can pause\nbetween steps.\n\n**Prioritized checklist**\n\n1. Get the employer match if you have one — free money.\n2. Build a small emergency buffer so you're not stressed about every dollar.\n3. Contribute something consistent to your HSA, even if it's small.\n4. Keep receipts for medical expenses.\n5. When ready, consider investing the balance above your cash cushion.\n\n**Ongoing support**\n\nYou can come back to this anytime. Revisit your contribution at open enrollment\nor when your income or expenses change. There's no deadline to \"figure it all\nout\" — small, steady progress is enough.",
+        citations=['HealthEquity HSA Guidebook, pp. 49, 118–119', 'Behavioral Architecture of Financial Avoidance research document'],
+        suggested_questions=['Overwhelmed by HSA options', 'Too many choices', 'HSA steps'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    # Follow-up choices after "Should I Put Money Into an HSA?"
+    Topic(
+        id="whether_to_contribute",
+        label='Benefits to Contribute / Trade-Offs',
+        answer="**1. Benefit of employer HSA matching**\n\nIf your employer contributes to your HSA or matches your contributions,\nthat's free additional savings — you don't pay taxes on it, and it goes\ndirectly into your account. Many employers offer a set amount or a\nmatch when you contribute. Contributing at least enough to get the full\nemployer match is one of the best moves you can make; otherwise you're\nleaving money on the table.\n\n**2. HSA contributions vs. paying student loan interest**\n\nHSA contributions reduce your taxable income and can save you 22–30%\n(or more) in combined federal, state, and FICA taxes, depending on your\nbracket. So a \\$1,000 HSA contribution might only cost you around\n\$650–700 after tax savings. Paying student loan interest reduces the\namount of interest you pay over time and can qualify for a tax deduction\n(up to \\\$2,500) in some cases, but it doesn't give you the triple tax\nadvantage or the flexibility of an HSA for future healthcare.\n\n**3. A simple, balanced recommendation**\n\nGet the employer HSA match first — that's free money. Then evaluate your\nstudent loan situation. If you have high-interest debt, paying it down\nmay feel urgent; if your employer match is strong and your loan rate is\nmoderate, contributing to your HSA still builds tax-free healthcare\nsavings that never expire. There's no single right answer for everyone —\nit depends on your match, your loan rate, and your cash flow.\n\n**4. Reassurance**\n\nBoth saving in an HSA and repaying debt are valid financial priorities.\nYou don't have to choose one and ignore the other. Even small HSA\ncontributions add up and reduce your tax bill; even extra loan payments\nreduce interest over time. Doing a little of both is often reasonable.",
+        citations=['HealthEquity HSA Guidebook, pp. 49, 118–119', 'HSA Chatbot Knowledge Base & Fact Sheet'],
+        suggested_questions=['Whether to contribute', 'Should I contribute or pay loans?', 'HSA vs student loans'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    Topic(
+        id="is_hsa_worth_it",
+        label='Is HSA Worth it for me?',
+        answer="**1. Prioritize financial stability when savings are limited**\n\nWhen money is tight, focus on stability first. An HSA is valuable, but it works\nbest when you have some flexibility. If you're building from zero, that's okay —\nmany people start small.\n\n**2. Emergency funds provide flexibility**\n\nAn emergency fund covers unexpected non-medical expenses (car repair, job loss,\netc.). HSA funds are for qualified medical expenses. Having a small cash buffer\nmeans you're not forced to tap the HSA for non-medical emergencies or stress\nabout every dollar.\n\n**3. HSA benefits (without repeating definitions)**\n\nHSAs offer tax advantages and future healthcare savings — contributions go in\ntax-free, growth is tax-free, and withdrawals for medical expenses are tax-free.\nThey're especially powerful when you can invest the balance for the long term.\n\n**4. A simple priority framework**\n\n(a) Build a small emergency buffer first (e.g. a starter savings fund).\n(b) Contribute to your HSA if there's an employer match — that's free money.\n(c) Increase HSA savings once your financial situation feels more stable.\n\n*Example:* Aim for \$500–\$1,000 in a starter emergency fund, then contribute\nenough to your HSA to get the full employer match (e.g. if they match up to\n\$600/year, contribute at least \$600). Once you have one to two months of\nexpenses saved, you can gradually increase HSA contributions.\n\n**5. Trade-off: liquidity vs. long-term tax benefits**\n\nEmergency savings are liquid; you can use them for anything. HSA money is best\nused for medical expenses to keep the tax benefit. Both matter — it's about\nfinding a balance that fits your life right now.\n\n**6. Balanced guidance, not a strict rule**\n\nThere's no single right order for everyone. Your age, health, job security, and\ndebt all play a role. The framework above is a starting point, not a requirement.\n\n**7. Reassurance**\n\nIt's normal to feel uncertain. Many people wonder if they're doing enough.\nMaking any progress — whether a small emergency fund or a first HSA contribution —\nis moving in the right direction.",
+        citations=['HealthEquity HSA Guidebook, pp. 49, 118–119', 'Generational HSA Divide research document'],
+        suggested_questions=['Is an HSA worth it for me?', 'Should I get an HSA?', 'HSA vs emergency fund'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    Topic(
+        id="how_much_to_contribute",
+        label='How Much to Contribute',
+        answer="**1. Annual HSA contribution limits**\n\nThe IRS sets a maximum you can put into your HSA each year — from all\nsources combined (you, your employer, anyone). For 2025: self-only\ncoverage is \$4,300; family coverage is \$8,750. If you're 55 or older, you\ncan add an extra $1,000 catch-up contribution. These limits adjust each\nyear for inflation. If you exceed the limit, you may owe a 6% excise tax\non the excess, so it's important to stay within the cap.\n\n**2. General contribution guidance**\n\nStart small if you need to — even \$25 or $50 per paycheck adds up and\ngives you tax savings. Increase gradually as your budget allows. There's\nno minimum; the key is to contribute something consistent so you build\nthe habit and the balance.\n\n**3. Typical strategies**\n\nMany people first contribute enough to cover their expected medical\ncosts for the year (copays, prescriptions, dental, vision). That way\nyour HSA is there when you need it. After that, consider saving extra\nfor the future — either for a health emergency or for retirement\nhealthcare. If you can afford to pay current medical bills out of pocket\nand leave your HSA invested, that can maximize long-term growth.\n\n**4. Flexibility**\n\nYou can change your contribution amount anytime. If your employer allows\nit, you can adjust payroll deductions during the year; if you contribute\non your own, you control the timing and amount. There's no commitment —\ncontribute what makes sense now and revisit as your situation changes.",
+        citations=['HealthEquity HSA Guidebook, pp. 38, 118–119', 'HSAs For Dummies, Optum Financial Special Edition, p. 13'],
+        suggested_questions=['How much to contribute', 'HSA contribution limits', 'How much should I put in my HSA?'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    # Follow-up choices after "What is an HSA?"
+    Topic(
+        id="hsa_awareness_basic",
+        label='HSA Awareness & Basic Understanding',
+        answer="**How it works:** Contributions go in tax-free (from you or your employer),\nfunds roll over every year with no expiration, and withdrawals for qualified\nmedical expenses are tax-free. Many people invest their HSA balance for\nlong-term growth. You own the account — it stays with you when you change\njobs or health plans.\n\n**Who typically qualifies:** You must be in an HSA-qualified high-deductible\nhealth plan (HDHP). You cannot have a general-purpose FSA, be on Medicare,\nor be claimed as someone else's dependent. Employer plans and ACA\nmarketplace plans (e.g. bronze, catastrophic) often qualify — check with\nHR or your insurer.\n\n**Examples of use:** People pay for doctor visits, prescriptions, dental\ncleanings, vision exams, mental health therapy, and over-the-counter\nmedications. Some pay current bills with their HSA card; others pay out\nof pocket and reimburse later so the balance stays invested. Many use it\nfor both short-term costs (a copay today) and future needs (retirement\nhealthcare).",
+        citations=['HealthEquity HSA Guidebook, pp. 6–7, 25, 183', 'WageWorks Guide to HSAs, pp. 8, 15, 67', 'Generational HSA Divide research document'],
+        suggested_questions=['HSA awareness', 'Basic understanding of HSA', 'Who uses HSAs?'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    Topic(
+        id="confusion_eligibility",
+        label='Confusion About Eligibility',
+        answer="**Eligibility by situation**\n\n**HDHP (High-Deductible Health Plan):** You must be in an HSA-qualified\nhealth plan. The IRS sets minimum deductibles and maximum out-of-pocket\nlimits each year (e.g. 2025: \$1,650 single / \$3,300 family deductible;\n\$8,300 / \$16,600 out-of-pocket max). Your plan must meet these. You\ncannot have a standard Health FSA, be on Medicare, or be claimed as a\ndependent on someone else's return. Other coverage (e.g. a spouse's plan\nthat pays before your deductible) can disqualify you — check with HR or\nyour plan.\n\n**Employer:** If your employer offers an HSA-qualified HDHP, you usually\nenroll during open enrollment. Contributions can come through payroll\n(with FICA savings). You cannot contribute to an HSA if you also have a\ngeneral-purpose FSA or HRA that pays before the HDHP deductible. A\nLimited Purpose FSA (dental/vision only) or a post-deductible HRA is\nallowed.\n\n**Student / parent's plan:** If you're on a parent's plan, you can only\nopen and contribute to an HSA if that plan is HSA-qualified. Many\nparent plans are not. If you're claimed as a dependent, you generally\ncannot contribute. Once you're no longer a dependent (e.g. after 26 or\nwhen you have your own HDHP), you can open an HSA if your current plan\nqualifies. Student health plans vary — confirm with the school or\ninsurer whether the plan meets HDHP rules.\n\n**Possible next steps**\n\n- **Check your plan:** Ask HR or your insurer: \"Is my plan HSA-qualified?\"\n  They can confirm deductible and out-of-pocket limits.\n- **If you have an HDHP:** You can open an HSA (through work or on your\n  own), then contribute up to the annual limit.\n- **If you're on a parent's or student plan:** Get the plan document or\n  summary; look for \"HSA-eligible\" or ask the provider. If it's not\n  HSA-eligible, you'd need to switch to an HSA-qualified plan (e.g. at\n  a new job or on the marketplace) to contribute.\n- **If you have an FSA:** A general-purpose FSA blocks HSA contributions.\n  A Limited Purpose FSA does not — you can have both.",
+        citations=['HealthEquity HSA Guidebook, pp. 6–8', 'WageWorks Guide to HSAs, p. 8', 'WageWorks Guide to HSAs, p. 39'],
+        suggested_questions=['Am I eligible?', 'Confusion about eligibility', 'Can I get an HSA on my plan?'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    # Follow-up choices after "How to Use Your HSA?"
+    Topic(
+        id="what_expenses_qualify",
+        label='What Expenses Qualify',
+        answer="**Examples of qualified expenses:** Doctor and specialist visits, hospital\nstays, prescriptions, dental (cleanings, fillings, braces), vision (exams,\nglasses, contacts, LASIK), mental health therapy, over-the-counter\nmedications and many OTC items (e.g. bandages, menstrual products), and\npreventive care. You can use HSA funds for your spouse and tax dependents\ntoo.\n\n**Documentation requirements:** Keep itemized receipts and Explanation of\nBenefits (EOB) notices. If you reimburse yourself later — even years\nlater — you need proof the expense was qualified and occurred after your\nHSA was opened. Your HSA provider's app or portal can help you store\nreceipts.\n\n**IRS-approved categories:** The IRS defines qualified medical expenses in\nPublication 502 (Medical and Dental Expenses). Common categories include\nmedical care, prescription drugs, dental and vision, and certain insurance\npremiums (e.g. COBRA, Medicare after 65). When in doubt, check Publication\n502 or ask your tax advisor.\n\n**Record-keeping:** Treat your HSA like any financial account. Without\nreceipts, the IRS could treat a withdrawal as non-qualified (income tax plus\n20% penalty before age 65). Build the habit early; it takes little time\nwith a digital folder or your provider's tool.",
+        citations=['HealthEquity HSA Guidebook, p. 183', 'WageWorks Guide to HSAs, p. 67', 'HSAs For Dummies, Optum Financial Special Edition, p. 20', 'IRS Publication 502'],
+        suggested_questions=['What expenses qualify?', 'What can I use my HSA for?', 'Qualified medical expenses'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    Topic(
+        id="saving_vs_spending_hsa",
+        label='Saving vs. Spending HSA Funds',
+        answer="**1. Explain the two strategies clearly**\n\n- (a) **Strategy A: Use HSA now to cover expenses** — Pay for qualified medical\n  costs (copays, prescriptions, dental, etc.) directly from your HSA so you\n  don't dip into regular savings. You get immediate tax-free use of the money.\n- (b) **Strategy B: Pay out-of-pocket and let HSA grow** — Pay medical bills\n  from your regular account, keep receipts, and leave your HSA balance invested.\n  You can reimburse yourself years later; in the meantime the balance compounds tax-free.\n\n**2. Show a simple comparison**\n\n- (a) **Spend now** → immediate tax-free savings; you use the HSA like a healthcare\n  checking account and free up cash flow.\n- (b) **Save & invest** → potential compounding growth; money stays in the account,\n  can be invested, and may grow substantially for future or retirement healthcare.\n\n*Number example* (a \$500 medical bill):\n- **Spend now:** Use \$500 from your HSA — you save ~\$110–150 in taxes (vs. paying with after-tax dollars in a 22–30% bracket).\n- **Save & invest:** Pay \$500 out of pocket, leave \$500 in the HSA invested; at 6% growth for 20 years that \$500 could become ~\$1,600 tax-free for future healthcare.\n\n**3. When each makes sense**\n\n- (a) **Use now if:** tight cash flow, need to cover current medical costs without\n  stress, or prefer simplicity (pay and move on).\n- (b) **Save if:** stable finances, long-term mindset, and you can afford to pay\n  medical bills from other funds so the HSA can grow.\n\n**4. Reinforce flexibility**\n\n- (a) You can reimburse yourself later — there's no IRS deadline. Pay out of\n  pocket today, keep the receipt, and take money from the HSA in a future year.\n- (b) No expiration on funds. HSA money rolls over every year; you can mix\n  strategies (use some now, let the rest grow) and change approach as your situation changes.",
+        citations=['HealthEquity HSA Guidebook, pp. 66, 118–119, 127–129', 'WageWorks Guide to HSAs, p. 64'],
+        suggested_questions=['Save or spend HSA?', 'Should I use my HSA now or later?', 'Saving vs spending HSA funds'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    # Follow-up choices after "Long-Term HSA Strategy"
+    Topic(
+        id="long_term_value_hsa",
+        label='Long-Term Value of HSA',
+        answer="**Rising healthcare costs**\n\nHealthcare costs tend to rise over time, and retirement medical expenses are\none of the biggest financial risks people underestimate. A married couple with\naverage prescription needs may need hundreds of thousands of dollars for\nout-of-pocket medical expenses in retirement.\n\n**HSA as a future safety net**\n\nAn HSA is uniquely positioned for this: you contribute during your working\nyears, the money grows tax-free, and withdrawals for qualified healthcare are\nnever taxed — even in retirement. After 65 you can also use it for\nnon-medical expenses (taxed like an IRA) or for Medicare premiums.\n\n**Simple projection example**\n\nSaving a few thousand per year in an HSA and investing it over decades can\ngrow into a substantial sum. For example, contributing and investing over 20–30\nyears can build a six-figure balance for retirement healthcare, depending on\namounts and returns.\n\n**Planning steps**\n\n1. Contribute consistently, especially if you have an employer match.\n2. Consider investing your HSA balance once you have a comfortable cash\n   cushion for near-term medical needs.\n3. Keep receipts so you can reimburse yourself later and let the balance grow.\n4. Revisit your strategy as you approach retirement and Medicare.",
+        citations=['HealthEquity HSA Guidebook, pp. 8–9, 118', 'Employee Benefit Research Institute (EBRI)'],
+        suggested_questions=['Long-term value of HSA', 'HSA for future healthcare', 'Retirement HSA'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
+    Topic(
+        id="investing_hsa_funds",
+        label='Investing HSA Funds',
+        answer="**Investment feature, simply put**\n\nMany HSA providers let you invest your balance in stocks, bonds, and mutual\nfunds once your cash balance reaches a minimum (often \$1,000–\$2,000). Any\namount above that can be moved into investments. Earnings grow tax-free as long\nas you use the money for qualified medical expenses.\n\n**Risks vs. benefits**\n\nInvestments can go up or down — they're not FDIC-insured like cash. The benefit\nis long-term growth: over decades, invested HSA funds can grow substantially,\nall tax-free for healthcare. Many people who can afford to pay current medical\nbills out of pocket leave their HSA invested to maximize growth.\n\n**Beginner-friendly advice**\n\nStart by keeping enough in cash to cover expected medical costs for the year.\nThen consider moving the rest into a diversified option (e.g. a target-date or\nindex fund) if your provider offers it. You can move money back to cash anytime\nif you need it for an expense.\n\n**Gradual approach**\n\nYou don't have to invest everything at once. Build the habit of contributing\nfirst; then, as your balance grows and you're comfortable with the rules, consider\ninvesting a portion. Only 9–15% of HSA holders invest — those who do often\nbenefit from years of tax-free compounding.",
+        citations=['HealthEquity HSA Guidebook, pp. 66, 127–129', 'WageWorks Guide to HSAs, p. 64', 'Behavioral Architecture of Financial Avoidance research document'],
+        suggested_questions=['Invest HSA?', 'Investing HSA funds', 'HSA investment options'],
+        next_suggested_topics=[
+            "understanding_hsa", "contribute_decisions", "using_hsa",
+            "long_term_planning", "emotional_support", "behavioral_nudges",
+        ],
+    ),
 ]
 
-DEFAULT_WELCOME_TOPIC_IDS = ["what_is_hsa", "young_adults", "triple_tax", "misconceptions", "qualified_expenses"]
+DEFAULT_WELCOME_TOPIC_IDS = [
+    "understanding_hsa",
+    "contribute_decisions",
+    "using_hsa",
+    "long_term_planning",
+    "emotional_support",
+    "behavioral_nudges",
+]
 
 # Topic difficulty / pacing tags (visual only — reduces overwhelm, signals natural order).
 # 🟢 Good starting point | 🟡 A little more detail | 🔵 When you're ready
@@ -210,12 +423,32 @@ TOPIC_DIFFICULTY: dict[str, dict[str, str]] = {
     "what_is_hsa": {"emoji": "🟢", "label": "Good starting point"},
     "portability": {"emoji": "🟢", "label": "Good starting point"},
     "misconceptions": {"emoji": "🟢", "label": "Good starting point"},
+    "understanding_hsa": {"emoji": "🟢", "label": "Good starting point"},
+    "hsa_awareness_basic": {"emoji": "🟢", "label": "Good starting point"},
+    "confusion_eligibility": {"emoji": "🟢", "label": "Good starting point"},
+    "emotional_support": {"emoji": "🟢", "label": "Good starting point"},
+    "uncertainty_hsa": {"emoji": "🟢", "label": "Good starting point"},
+    "overwhelmed_by_options": {"emoji": "🟢", "label": "Good starting point"},
+    "hsa_rarely_think": {"emoji": "🟢", "label": "Good starting point"},
+    "contribute_dont_understand": {"emoji": "🟢", "label": "Good starting point"},
+    "behavioral_nudges": {"emoji": "🟢", "label": "Good starting point"},
     "triple_tax": {"emoji": "🟡", "label": "A little more detail"},
     "qualified_expenses": {"emoji": "🟡", "label": "A little more detail"},
     "contribution_limits": {"emoji": "🟡", "label": "A little more detail"},
+    "contribute_decisions": {"emoji": "🟡", "label": "A little more detail"},
+    "whether_to_contribute": {"emoji": "🟡", "label": "A little more detail"},
+    "is_hsa_worth_it": {"emoji": "🟡", "label": "A little more detail"},
+    "how_much_to_contribute": {"emoji": "🟡", "label": "A little more detail"},
+    "using_hsa": {"emoji": "🟡", "label": "A little more detail"},
+    "what_expenses_qualify": {"emoji": "🟡", "label": "A little more detail"},
+    "saving_vs_spending_hsa": {"emoji": "🟡", "label": "A little more detail"},
+    "tradeoff_support": {"emoji": "🟡", "label": "A little more detail"},
     "investment": {"emoji": "🔵", "label": "When you're ready"},
     "retirement_planning": {"emoji": "🔵", "label": "When you're ready"},
     "complementary_accounts": {"emoji": "🔵", "label": "When you're ready"},
+    "long_term_planning": {"emoji": "🔵", "label": "When you're ready"},
+    "long_term_value_hsa": {"emoji": "🔵", "label": "When you're ready"},
+    "investing_hsa_funds": {"emoji": "🔵", "label": "When you're ready"},
 }
 
 
