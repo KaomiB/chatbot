@@ -21,6 +21,9 @@ htmlcov/
 .env.local
 *.env
 
+# Notes / scratch (temp and random md files)
+notes/
+
 # OS
 .DS_Store
 Thumbs.db
