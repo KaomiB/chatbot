@@ -1,0 +1,34 @@
+# Heal&Save — Palette C: Pastel Bloom
+# Vibe: uses your original pastel palette, but assigned correctly (white base, pastels as zones)
+# Best for: closest to your teammates' intent, but fixed hierarchy
+
+[theme]
+base = "light"
+
+primaryColor = "#B05070"          # deeper blush — buttons (readable on white)
+backgroundColor = "#FFFFFF"       # white main content — NOT a pastel
+secondaryBackgroundColor = "#FEF8FB"  # barely pink — inputs
+textColor = "#1E1525"             # near-black with violet tint
+linkColor = "#A04468"
+font = "sans serif"
+
+borderColor = "#EDD8E8"
+codeBackgroundColor = "#FDE7D4"   # peach — code
+dataframeHeaderBackgroundColor = "#E7CEE3"  # thistle — table headers
+baseRadius = "0.5rem"
+buttonRadius = "2rem"             # rounder for a softer feel
+
+[theme.sidebar]
+backgroundColor = "#F5EFFB"       # very light lavender — sidebar (not full E7CEE3 — too loud)
+secondaryBackgroundColor = "#EDD8F0"  # light thistle — sidebar inputs
+primaryColor = "#FFB8D1"          # blush pink — "Go to topic" button
+textColor = "#1E1525"
+borderColor = "#DEC8E8"
+
+redColor = "#E4B4C2"
+orangeColor = "#FDE7D4"
+yellowColor = "#FDFBD4"
+greenColor = "#EBFDD4"
+blueColor = "#DDFDFE"
+violetColor = "#E7CEE3"
+grayColor = "#E0E1E9"
