@@ -1,34 +1,39 @@
-# Heal&Save — Palette C: Pastel Bloom
-# Vibe: uses your original pastel palette, but assigned correctly (white base, pastels as zones)
-# Best for: closest to your teammates' intent, but fixed hierarchy
+# Heal&Save — PALETTE
+# Sidebar: #E7CEE3  Active: #EBFDD4  Main BG: #DDFDFE  Accent: #FDFBD4  Primary: #FFB8D1
 
 [theme]
 base = "light"
 
-primaryColor = "#B05070"          # deeper blush — buttons (readable on white)
-backgroundColor = "#FFFFFF"       # white main content — NOT a pastel
-secondaryBackgroundColor = "#FEF8FB"  # barely pink — inputs
-textColor = "#1E1525"             # near-black with violet tint
-linkColor = "#A04468"
-font = "sans serif"
+primaryColor = "#FFB8D1"
+backgroundColor = "#DDFDFE"
+secondaryBackgroundColor = "#EBFDD4"
+textColor = "#1A2028"
+linkColor = "#C06080"
 
-borderColor = "#EDD8E8"
-codeBackgroundColor = "#FDE7D4"   # peach — code
-dataframeHeaderBackgroundColor = "#E7CEE3"  # thistle — table headers
+# default font is source sans
+# other sans option is font = "'DM Sans':https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000&display=swap"
+
+# Surfaces and borders
+borderColor = "#C8EEE0"
+codeBackgroundColor = "#EBFDD4"
+dataframeHeaderBackgroundColor = "#E7CEE3"
 baseRadius = "0.5rem"
-buttonRadius = "2rem"             # rounder for a softer feel
+buttonRadius = "1rem"
 
+# Sidebar
 [theme.sidebar]
-backgroundColor = "#F5EFFB"       # very light lavender — sidebar (not full E7CEE3 — too loud)
-secondaryBackgroundColor = "#EDD8F0"  # light thistle — sidebar inputs
-primaryColor = "#FFB8D1"          # blush pink — "Go to topic" button
-textColor = "#1E1525"
-borderColor = "#DEC8E8"
+backgroundColor = "#E7CEE3"
+secondaryBackgroundColor = "#EBFDD4"
+primaryColor = "#FFB8D1"
+textColor = "#1A2028"
+borderColor = "#D4B8D0"
 
+# Palette for badges, metrics, alerts
 redColor = "#E4B4C2"
 orangeColor = "#FDE7D4"
 yellowColor = "#FDFBD4"
 greenColor = "#EBFDD4"
 blueColor = "#DDFDFE"
 violetColor = "#E7CEE3"
-grayColor = "#E0E1E9"
+grayColor = "#909898"
+

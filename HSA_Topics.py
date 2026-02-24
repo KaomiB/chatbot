@@ -127,8 +127,26 @@ def _set_pending(label: str):
 
 # Page config and title (topics/facts, not chat)
 st.set_page_config(page_title="Explore HSA by topic", page_icon="📋")
-st.title("Explore HSA by topic")
-st.caption("Explore by topic — pick what fits. No account needed.")
+
+# Sidebar "Go to topic" button + header block (match healandsave-all-palettes: .m-tag / .m-title)
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebar"] .stButton > button {
+        background-color: #FFB8D1 !important;
+        color: #1e1e1e !important;
+    }
+    .m-tag { font-size: 0.90rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; margin-bottom: 4px; }
+    .m-title {font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+st.markdown(
+    '<div class="m-tag">Explore</div><div class="m-title">HSA by Topic</div>',
+    unsafe_allow_html=True,
+)
+st.caption("Browse at your own pace & find answers instantly. No sign-up needed.")
 
 # Session state: list of {role, content, citations?, topic_id?}; topic_id = for "You might also ask" buttons
 if "messages" not in st.session_state:

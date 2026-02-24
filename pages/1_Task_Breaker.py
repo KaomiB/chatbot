@@ -33,7 +33,27 @@ Add estimated time for each step in (XX mins) format.
 
 
 st.set_page_config(page_title="Task Breaker", page_icon="🧙‍♂️")
-st.title("🧙‍♂️ Task Breakdown Assistant")
+
+# Sidebar supportive note: sticky-note look (yellow) + readable text
+st.markdown(
+    """
+    <style>
+    [data-testid="stSidebar"] [data-testid="stAlert"] {
+        color: #1A2028 !important;
+        background-color: #FDFBD4 !important;
+        border-radius: 0.5rem;
+        border-left: 4px solid #E4B4C2;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+    [data-testid="stSidebar"] [data-testid="stAlert"] p {
+        color: #1A2028 !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+st.title("Task Breakdown Assistant")
 
 # ─── Preload from Trade-Off Tool ──────────────────────────────────────────
 preload_id = st.session_state.pop("task_breaker_preload_task_id", None)
