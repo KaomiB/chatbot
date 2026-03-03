@@ -174,4 +174,4 @@ for opt in q["options"]:
             st.session_state.tradeoff_q_index = q_index + 1
         st.rerun()
 
-st.caption("**Next:** HSA topics · Task Breaker · AI Chat (sidebar).")
+st.caption("**Next:** HSA topics · Task Breaker · AI Chat.")

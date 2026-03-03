@@ -1,0 +1,39 @@
+# Heal&Save — PALETTE
+# Sidebar: #E7CEE3  Active: #EBFDD4  Main BG: #DDFDFE  Accent: #FDFBD4  Primary: #FFB8D1
+
+[theme]
+base = "light"
+
+primaryColor = "#FFB8D1"
+backgroundColor = "#DDFDFE"
+secondaryBackgroundColor = "#EBFDD4"
+textColor = "#1A2028"
+linkColor = "#C06080"
+
+# default font is source sans
+# other sans option is font = "'DM Sans':https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000&display=swap"
+
+# Surfaces and borders
+borderColor = "#C8EEE0"
+codeBackgroundColor = "#EBFDD4"
+dataframeHeaderBackgroundColor = "#E7CEE3"
+baseRadius = "0.5rem"
+buttonRadius = "1rem"
+
+# Sidebar
+[theme.sidebar]
+backgroundColor = "#E7CEE3"
+secondaryBackgroundColor = "#EBFDD4"
+primaryColor = "#FFB8D1"
+textColor = "#1A2028"
+borderColor = "#D4B8D0"
+
+# Palette for badges, metrics, alerts
+redColor = "#E4B4C2"
+orangeColor = "#FDE7D4"
+yellowColor = "#FDFBD4"
+greenColor = "#EBFDD4"
+blueColor = "#DDFDFE"
+violetColor = "#E7CEE3"
+grayColor = "#909898"
+
