@@ -15,7 +15,13 @@ warnings.filterwarnings(
 import streamlit as st
 from langchain_openai import ChatOpenAI
 
-from task_library import flatten_steps, get_task_by_id, get_task_labels
+from task_library import (
+    TASK_SECTIONS,
+    flatten_steps,
+    get_task_by_id,
+    get_task_labels,
+    get_section_for_task_id,
+)
 
 
 def generate_breakdown(task: str, complexity: str, api_key: str) -> str:
@@ -38,6 +44,9 @@ st.title("🧙‍♂️ Task Breakdown Assistant")
 # ─── Preload from Trade-Off Tool ──────────────────────────────────────────
 preload_id = st.session_state.pop("task_breaker_preload_task_id", None)
 if preload_id:
+    preload_section = get_section_for_task_id(preload_id)
+    if preload_section:
+        st.session_state.task_breaker_section = preload_section
     for tid, lbl in get_task_labels():
         if tid == preload_id:
             st.session_state.scenario_select = lbl
@@ -45,15 +54,31 @@ if preload_id:
 
 # ─── HSA scenarios (hardcoded, no API) ─────────────────────────────────────
 st.subheader("Pick an HSA scenario")
-scenario_labels = ["— Pick a scenario —"] + [lbl for _, lbl in get_task_labels()]
-selected_label = st.selectbox(
-    "Choose a task to get step-by-step guidance",
-    options=scenario_labels,
-    key="scenario_select",
+
+section_options = ["— Pick a section —"] + list(TASK_SECTIONS)
+selected_section = st.selectbox(
+    "Section",
+    options=section_options,
+    key="task_breaker_section",
 )
-selected_id = None if selected_label == "— Pick a scenario —" else next(
-    (tid for tid, lbl in get_task_labels() if lbl == selected_label), None
-)
+selected_section = None if selected_section == "— Pick a section —" else selected_section
+
+if selected_section:
+    scenario_labels = ["— Pick a scenario —"] + [lbl for _, lbl in get_task_labels(selected_section)]
+    # Reset scenario if it belonged to a different section (e.g. user changed section)
+    if st.session_state.get("scenario_select") and st.session_state["scenario_select"] not in scenario_labels:
+        st.session_state["scenario_select"] = "— Pick a scenario —"
+    selected_label = st.selectbox(
+        "Scenario",
+        options=scenario_labels,
+        key="scenario_select",
+    )
+    selected_id = None if selected_label == "— Pick a scenario —" else next(
+        (tid for tid, lbl in get_task_labels(selected_section) if lbl == selected_label), None
+    )
+else:
+    selected_label = "— Pick a scenario —"
+    selected_id = None
 
 if selected_id:
     task_obj = get_task_by_id(selected_id)
@@ -62,21 +87,52 @@ if selected_id:
             "How much detail?",
             options=["gentle", "medium", "detailed"],
             format_func=lambda x: {
-                "gentle": "Standard — moderate detail",
-                "medium": "Overview — fewer steps, grouped",
-                "detailed": "Step-by-step — every action listed",
+                "gentle": "Guided Walk Through (Standard)",
+                "medium": "Quick Summary",
+                "detailed": "Detailed Checklist",
             }[x],
             horizontal=True,
             key="scenario_level",
         )
-        steps_list = task_obj["steps"].get(level) or task_obj["steps"].get("medium") or []
-        flat_steps = flatten_steps(steps_list)
         st.caption("Track your progress")
-        for i, step_line in enumerate(flat_steps):
-            st.checkbox(step_line, key=f"scenario_{selected_id}_{level}_{i}")
+        use_detailed = level == "detailed" and task_obj.get("sections_detailed")
+        sections_list = (task_obj["sections_detailed"] if use_detailed else task_obj.get("sections")) or task_obj.get("sections")
+        if sections_list:
+            show_items = level != "medium"  # Quick Summary = main steps only
+            for sec_idx, sec in enumerate(sections_list):
+                header = sec["title"]
+                if sec.get("time"):
+                    header += f" (Estimated time: {sec['time']})"
+                if show_items:
+                    weight = "bold"
+                    st.markdown(
+                        f'<p style="font-size: 1.15em; font-weight: {weight}; margin-bottom: 0.25em;">{header}</p>',
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.checkbox(header, key=f"scenario_{selected_id}_summary_{sec_idx}")
+                if show_items:
+                    for i, item in enumerate(sec["items"]):
+                        if isinstance(item, dict) and "text" in item and "sub" in item:
+                            st.checkbox(item["text"], key=f"scenario_{selected_id}_sec_{sec_idx}_{i}")
+                            sub_items_html = "".join(f"<li>{s}</li>" for s in item["sub"])
+                            st.markdown(
+                                f'<div style="margin-left: 0; margin-top: -1.15em; margin-bottom: 0.6em;"><ul style="margin: 0; padding-left: 1.5em; line-height: 1.4;">{sub_items_html}</ul></div>',
+                                unsafe_allow_html=True,
+                            )
+                        else:
+                            text = item if isinstance(item, str) else item.get("text", "")
+                            st.checkbox(text.replace("\n", " "), key=f"scenario_{selected_id}_sec_{sec_idx}_{i}")
+                if sec_idx < len(sections_list) - 1:
+                    st.markdown('<div style="margin-bottom: 1.25em;"></div>', unsafe_allow_html=True)
+        else:
+            steps_list = task_obj["steps"].get(level) or task_obj["steps"].get("medium") or []
+            flat_steps = flatten_steps(steps_list)
+            for i, step_line in enumerate(flat_steps):
+                st.checkbox(step_line, key=f"scenario_{selected_id}_{level}_{i}")
 
 st.divider()
-st.subheader("Or break down a custom task")
+st.subheader("Break Down a Custom Task")
 st.caption("Uses AI to turn any task into steps. Requires OpenAI API key in secrets.")
 
 if "OPENAI_API_KEY" not in st.secrets:

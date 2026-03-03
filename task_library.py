@@ -1,24 +1,99 @@
 """
 HSA Task Breaker — hardcoded task library (from task_library.js).
-Each task has id, label, gentle_note, and steps: gentle / medium / detailed.
+Each task has id, label, section, gentle_note, and steps: gentle / medium / detailed.
 Steps can have text, time, and optional sub_steps.
 """
 
 # Step: {"text": str, "time": str, "sub_steps": optional list of {"text": str, "time": str}}
 # Level: "gentle" | "medium" | "detailed"
 
+# Section order for the Task Breaker dropdown (grouped by category).
+TASK_SECTIONS = [
+    "Getting Started / Eligibility",
+    "Using Your HSA",
+    "Contributions & Investing",
+    "Recordkeeping",
+]
+
 TASK_LIBRARY = [
     {
         "id": "open_hsa",
+        "section": "Getting Started / Eligibility",
         "label": "Open an HSA for the first time",
         "gentle_note": "This looks like a lot of steps written out, but each one is tiny. You don't have to do them all today.",
+        "sections": [
+            {"title": "Step 1: Confirm You're Eligible", "time": "~5 minutes", "items": ["Check if your plan says \"HDHP\" or \"HSA-eligible\"", "If unsure, email Human Resources (HR)"]},
+            {"title": "Step 2: Open or Activate Your HSA", "time": "~10 minutes", "items": ["Log into your benefits portal", "Click \"Open HSA\" or \"Enroll\"", "Complete identity verification"]},
+            {"title": "Step 3: Choose Your Contribution", "time": "~5 minutes", "items": ["Enter a monthly amount (even $25 is fine)", "Confirm payroll deduction"]},
+            {"title": "Step 4: Finish Setup (Optional but Recommended)", "items": ["Add a beneficiary", "Review account settings"]},
+        ],
+        "sections_detailed": [
+            {
+                "title": "Step 1: Confirm You're Eligible",
+                "time": "~5 min",
+                "items": [
+                    "Locate your insurance card, enrollment email, or benefits portal",
+                    "Write down the exact plan name",
+                    "Check if the plan includes the term \"HDHP\" or \"HSA-eligible\"",
+                    "If unsure, search your plan documents for \"High Deductible\"",
+                    "Confirm your deductible meets IRS minimums (2025: \$1,650 individual / \$3,300 family)",
+                    {"text": "Confirm you are NOT:", "sub": ["Enrolled in Medicare", "Claimed as a dependent on someone else's tax return", "Covered by a general-purpose FSA"]},
+                    "If still unsure, email Human Resources (HR):\n\"Hi — is my current health plan HSA-eligible?\"",
+                ],
+            },
+            {
+                "title": "Step 2: Check If Your Employer Already Has an HSA Provider",
+                "time": "~5 min",
+                "items": [
+                    "Log into your employee benefits portal",
+                    {"text": "Look for sections labeled:", "sub": ["\"HSA\"", "\"Health Savings Account\"", "\"Benefits Accounts\"", "Provider names like HealthEquity, Optum, Fidelity"]},
+                    {"text": "Confirm whether:", "sub": ["Your employer auto-enrolls you", "You must manually activate the account"]},
+                ],
+            },
+            {
+                "title": "Step 3: Open or Activate the Account",
+                "time": "~10 min",
+                "items": [
+                    "Click \"Open HSA,\" \"Enroll,\" or \"Activate Account\"",
+                    "Complete identity verification (have SSN + ID ready)",
+                    "Fill in required personal information",
+                    "Review and accept account terms",
+                    "Create login credentials",
+                    "Confirm account creation via email",
+                ],
+            },
+            {
+                "title": "Step 4: Set Your Contribution",
+                "time": "~5 min",
+                "items": [
+                    "Navigate to payroll or contribution settings",
+                    "Enter a monthly or per-paycheck amount",
+                    "Confirm pre-tax payroll deduction",
+                    "Verify contribution frequency (monthly vs per paycheck)",
+                    "Confirm changes are saved",
+                    "Check if your employer contributes (free money!)",
+                    "Confirm contribution start date",
+                ],
+            },
+            {
+                "title": "Step 5: Complete Important Setup (Recommended)",
+                "time": "~5 min",
+                "items": [
+                    "Add a beneficiary",
+                    "Review investment threshold settings",
+                    "Confirm where uninvested funds sit (cash account)",
+                    "Enable notifications or account alerts",
+                    "Save confirmation documents",
+                ],
+            },
+        ],
         "steps": {
             "gentle": [
                 {"text": "Check if your health plan says 'HSA-eligible', 'HDHP', or 'High-Deductible' anywhere in the name or plan documents.", "time": "~5 min",
                  "sub_steps": [
-                     {"text": "Find your insurance card or the email from HR when you enrolled.", "time": "~2 min"},
+                     {"text": "Find your insurance card or the email from Human Resources (HR) when you enrolled.", "time": "~2 min"},
                      {"text": "Look for the words 'HDHP', 'HSA-eligible', 'High-Deductible', or 'Bronze/Catastrophic' (if on a marketplace plan).", "time": "~1 min"},
-                     {"text": "If you can't find it, text or email your HR contact and ask: 'Is my current health plan HSA-eligible?'", "time": "~2 min"},
+                     {"text": "If you can't find it, text or email your Human Resources (HR) contact and ask: 'Is my current health plan HSA-eligible?'", "time": "~2 min"},
                  ]},
                 {"text": "Find out if your employer already has an HSA provider set up for you.", "time": "~5 min",
                  "sub_steps": [
@@ -32,10 +107,10 @@ TASK_LIBRARY = [
                      {"text": "Have your Social Security Number and a photo ID ready — federal law requires identity verification (same as opening a bank account).", "time": "~3 min"},
                      {"text": "Fill out the online form. You'll be asked for your name, address, date of birth, and SSN.", "time": "~5 min"},
                  ]},
-                {"text": "Set a contribution amount — even $10/month is a real start.", "time": "~5 min",
+                {"text": "Set a contribution amount — even \$10/month is a real start.", "time": "~5 min",
                  "sub_steps": [
                      {"text": "In your payroll or benefits portal, find the HSA contribution field.", "time": "~2 min"},
-                     {"text": "Enter any amount — $25, $50, whatever feels manageable. You can change this anytime.", "time": "~1 min"},
+                     {"text": "Enter any amount — \$25, \$50, whatever feels manageable. You can change this anytime.", "time": "~1 min"},
                      {"text": "If your employer contributes to your HSA, that money arrives automatically — you don't need to do anything extra for it.", "time": "~1 min"},
                  ]},
                 {"text": "Name a beneficiary (takes 2 minutes, easy to skip and regret later).", "time": "~2 min",
@@ -45,9 +120,9 @@ TASK_LIBRARY = [
                  ]},
             ],
             "medium": [
-                {"text": "Confirm your health plan is HSA-eligible by checking for 'HDHP' or 'HSA-eligible' on your insurance card, HR portal, or plan documents.", "time": "~5 min", "sub_steps": [
-                    {"text": "Find your insurance card or HR enrollment email.", "time": "~2 min"},
-                    {"text": "Look for 'HDHP', 'HSA-eligible', or 'High-Deductible'. Not sure? Email HR: 'Is my plan HSA-eligible?'", "time": "~3 min"},
+                {"text": "Confirm your health plan is HSA-eligible by checking for 'HDHP' or 'HSA-eligible' on your insurance card, Human Resources (HR) portal, or plan documents.", "time": "~5 min", "sub_steps": [
+                    {"text": "Find your insurance card or Human Resources (HR) enrollment email.", "time": "~2 min"},
+                    {"text": "Look for 'HDHP', 'HSA-eligible', or 'High-Deductible'. Not sure? Email Human Resources (HR): 'Is my plan HSA-eligible?'", "time": "~3 min"},
                 ]},
                 {"text": "Log into your employee benefits portal and find the HSA enrollment section.", "time": "~5 min", "sub_steps": [
                     {"text": "Go to your benefits portal (the same one used for health insurance enrollment).", "time": "~2 min"},
@@ -64,16 +139,16 @@ TASK_LIBRARY = [
                 {"text": "Add a beneficiary in your HSA account settings.", "time": "~2 min"},
             ],
             "detailed": [
-                {"text": "Find your insurance card or the enrollment email HR sent when you chose your health plan.", "time": "~2 min"},
+                {"text": "Find your insurance card or the enrollment email Human Resources (HR) sent when you chose your health plan.", "time": "~2 min"},
                 {"text": "Check the plan name for 'HDHP', 'High-Deductible', 'HSA-eligible', 'Bronze', or 'Catastrophic'.", "time": "~2 min"},
-                {"text": "If you're not sure, send this exact message to HR: 'Quick question — is my current health plan HSA-eligible?'", "time": "~2 min"},
-                {"text": "Log into your employee benefits or HR portal (the same site where you enrolled in health insurance).", "time": "~3 min"},
+                {"text": "If you're not sure, send this exact message to Human Resources (HR): 'Quick question — is my current health plan HSA-eligible?'", "time": "~2 min"},
+                {"text": "Log into your employee benefits or Human Resources (HR) portal (the same site where you enrolled in health insurance).", "time": "~3 min"},
                 {"text": "Navigate to the section for 'HSA', 'Spending Accounts', or your HSA provider name (common ones: HealthEquity, Optum, Fidelity, HSA Bank).", "time": "~3 min"},
-                {"text": "Click 'Open HSA' or 'Enroll'. If you don't see this option, call HR or check your benefits handbook.", "time": "~2 min"},
+                {"text": "Click 'Open HSA' or 'Enroll'. If you don't see this option, call Human Resources (HR) or check your benefits handbook.", "time": "~2 min"},
                 {"text": "Get your Social Security Number and a photo ID (driver's license or passport) — you'll need both for identity verification.", "time": "~3 min"},
                 {"text": "Fill in your full legal name, current mailing address, date of birth, and SSN in the online form.", "time": "~5 min"},
                 {"text": "Review and accept the custodial agreement (IRS Form 5305-B or 5305-C). This is standard — it makes the account legally yours.", "time": "~2 min"},
-                {"text": "Go to your payroll portal and find the HSA contribution field. Enter any amount — even $10 per paycheck. You can change this later.", "time": "~5 min"},
+                {"text": "Go to your payroll portal and find the HSA contribution field. Enter any amount — even \$10 per paycheck. You can change this later.", "time": "~5 min"},
                 {"text": "Navigate to your HSA account settings and add a beneficiary — the person who inherits the account if something happens to you.", "time": "~2 min"},
                 {"text": "Write down your HSA account number and provider name somewhere safe (a notes app is fine).", "time": "~1 min"},
             ],
@@ -81,11 +156,24 @@ TASK_LIBRARY = [
     },
     {
         "id": "check_eligibility",
+        "section": "Getting Started / Eligibility",
         "label": "Figure out if my health plan qualifies for an HSA",
         "gentle_note": "You only need to find one piece of paper (or one email) to figure this out. It's genuinely not hard once you know where to look.",
+        "sections": [
+            {"title": "Step 1: Find Your Plan Name", "time": "~3 min", "items": ["Find your insurance card or Human Resources (HR) enrollment email.", "Note the plan name."]},
+            {"title": "Step 2: Check for HSA Keywords", "time": "~2 min", "items": ["Search the plan name for: 'HDHP', 'High-Deductible', 'HSA-eligible', 'Consumer Choice', 'Bronze', or 'Catastrophic'."]},
+            {"title": "Step 3: Verify Special Cases", "time": "~5 min", "items": ["If on a marketplace plan: check annual deductible (\$1,650 individual / \$3,300 family for 2025).", "Confirm you're not on Medicare or claimed as a dependent."]},
+            {"title": "Step 4: Ask Human Resources (HR) If Unsure", "time": "~2 min", "items": ["Email Human Resources (HR): 'Is my current health plan HSA-eligible?'"]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Find Your Plan Name", "time": "~3 min", "items": ["Find your insurance card (wallet or insurer's app).", "Note the full plan name on the card.", "Or search email for 'open enrollment' or your insurer's name to find plan documents."]},
+            {"title": "Step 2: Check for HSA Keywords", "time": "~5 min", "items": ["In the plan name or summary, look for: 'HDHP', 'High-Deductible Health Plan', 'HSA-eligible', 'Consumer Choice', 'Bronze', or 'Catastrophic'.", "If on a marketplace plan: find your annual deductible (2025: at least $1,650 individual / $3,300 family)."]},
+            {"title": "Step 3: Verify You're Not Disqualified", "time": "~2 min", "items": [{"text": "Confirm you are NOT:", "sub": ["Enrolled in Medicare Part A or B", "Claimed as a dependent on someone else's federal tax return", "Covered by a general-purpose Health FSA (Limited Purpose FSA is OK)"]}]},
+            {"title": "Step 4: Ask Human Resources (HR) If Unsure", "time": "~2 min", "items": ["Email Human Resources (HR): 'Hi — is my current health plan HSA-eligible? I'd like to open an HSA.'"]},
+        ],
         "steps": {
             "gentle": [
-                {"text": "Find the name of your health insurance plan — it's on your insurance card or in your HR enrollment email.", "time": "~3 min", "sub_steps": [
+                {"text": "Find the name of your health insurance plan — it's on your insurance card or in your Human Resources (HR) enrollment email.", "time": "~3 min", "sub_steps": [
                     {"text": "Check your wallet for your insurance card. The plan name is usually on the front.", "time": "~1 min"},
                     {"text": "Or search your email inbox for 'benefits enrollment' or your insurance company's name.", "time": "~2 min"},
                 ]},
@@ -93,44 +181,57 @@ TASK_LIBRARY = [
                     {"text": "If any of those words appear: very likely yes, you qualify. Keep going.", "time": "~1 min"},
                     {"text": "If the plan name says 'PPO', 'HMO', 'EPO', or 'Platinum/Gold': likely not HSA-eligible, but still worth a quick confirmation.", "time": "~1 min"},
                 ]},
-                {"text": "When in doubt, just ask HR directly — this is a totally normal question.", "time": "~2 min", "sub_steps": [
+                {"text": "When in doubt, just ask Human Resources (HR) directly — this is a totally normal question.", "time": "~2 min", "sub_steps": [
                     {"text": "Send this message: 'Hi — quick question, is my current health plan HSA-eligible?'", "time": "~1 min"},
-                    {"text": "That's it. HR gets this question all the time.", "time": "~1 min"},
+                    {"text": "That's it. Human Resources (HR) gets this question all the time.", "time": "~1 min"},
                 ]},
             ],
             "medium": [
-                {"text": "Find your insurance card or HR enrollment email and note the plan name.", "time": "~3 min"},
+                {"text": "Find your insurance card or Human Resources (HR) enrollment email and note the plan name.", "time": "~3 min"},
                 {"text": "Search the plan name for: 'HDHP', 'High-Deductible', 'HSA-eligible', 'Consumer Choice', 'Bronze', or 'Catastrophic'.", "time": "~2 min"},
-                {"text": "If you're on a marketplace plan (not through an employer), check your plan summary for the annual deductible. For 2025, it must be at least $1,650 (individual) or $3,300 (family).", "time": "~5 min"},
+                {"text": "If you're on a marketplace plan (not through an employer), check your plan summary for the annual deductible. For 2025, it must be at least \$1,650 (individual) or \$3,300 (family).", "time": "~5 min"},
                 {"text": "Also confirm you're not enrolled in Medicare or claimed as a dependent on someone else's taxes — both disqualify you.", "time": "~2 min"},
-                {"text": "Still unsure? Email HR: 'Is my current health plan HSA-eligible?' — that's the fastest answer.", "time": "~2 min"},
+                {"text": "Still unsure? Email Human Resources (HR): 'Is my current health plan HSA-eligible?' — that's the fastest answer.", "time": "~2 min"},
             ],
             "detailed": [
                 {"text": "Find your insurance card (in your wallet or on your insurance company's app).", "time": "~2 min"},
                 {"text": "Note the full plan name shown on the card.", "time": "~1 min"},
                 {"text": "Search your email inbox for 'open enrollment' or your insurer's name to find your plan documents.", "time": "~3 min"},
                 {"text": "In the plan name or summary, look for: 'HDHP', 'High-Deductible Health Plan', 'HSA-eligible', 'Consumer Choice', 'Bronze', or 'Catastrophic'.", "time": "~2 min"},
-                {"text": "If on a marketplace plan: find your annual deductible. It must be at least $1,650 (individual) or $3,300 (family) for 2025.", "time": "~3 min"},
+                {"text": "If on a marketplace plan: find your annual deductible. It must be at least \$1,650 (individual) or \$3,300 (family) for 2025.", "time": "~3 min"},
                 {"text": "Confirm you are not enrolled in Medicare Part A or B (enrolling in Medicare ends HSA eligibility).", "time": "~1 min"},
                 {"text": "Confirm no one is claiming you as a dependent on their federal tax return.", "time": "~1 min"},
                 {"text": "Confirm you don't have a general-purpose Health FSA from an employer (this disqualifies you — a Limited Purpose FSA is fine).", "time": "~2 min"},
-                {"text": "If still unsure, send HR this message: 'Hi — is my current health plan HSA-eligible? I'd like to open an HSA.'", "time": "~2 min"},
+                {"text": "If still unsure, send Human Resources (HR) this message: 'Hi — is my current health plan HSA-eligible? I'd like to open an HSA.'", "time": "~2 min"},
             ],
         },
     },
     {
         "id": "aged_off_parents_plan",
+        "section": "Getting Started / Eligibility",
         "label": "I just aged off my parents' plan — figure out what to do",
         "gentle_note": "This is a genuinely stressful life transition and it's okay that it feels overwhelming. You have a 60-day window from when you lose coverage to enroll — so you have a little time.",
+        "sections": [
+            {"title": "Step 1: Know Your Deadline", "time": "~5 min", "items": ["Find your exact last day of coverage (call insurer or ask parent's Human Resources (HR).", "Write down the date — you have 60 days from then to enroll."]},
+            {"title": "Step 2: Check Employer Coverage", "time": "~5 min", "items": ["Ask Human Resources (HR): 'Do you offer health insurance? Can I enroll now due to a qualifying life event?'", "Aging off a parent's plan counts — you don't have to wait for open enrollment."]},
+            {"title": "Step 3: Compare Plans", "time": "~10 min", "items": ["Review plan options; look for an HDHP (HSA-eligible).", "Compare premiums and deductibles; factor in employer HSA contribution if any."]},
+            {"title": "Step 4: Enroll and Open HSA", "time": "~10–15 min", "items": ["Enroll via employer benefits or healthcare.gov (special enrollment).", "Once on an HDHP, open your HSA through benefits portal or provider."]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Know Your Deadline", "time": "~5 min", "items": ["Call the insurance number on your current card. Ask: 'What is my last day of coverage?'", "Write the date down — you have 60 days from that date to get new coverage."]},
+            {"title": "Step 2: Check Employer Coverage", "time": "~5 min", "items": ["Email your employer's Human Resources (HR): 'I'm losing coverage on my parents' plan on [date]. Do you offer health insurance? Can I enroll now?'", "Review the plan options. Look for any plan labeled 'HDHP', 'High-Deductible', or 'HSA-eligible'."]},
+            {"title": "Step 3: Compare Plans and Enroll", "time": "~15 min", "items": ["Compare the HDHP to other plans: (monthly premium × 12) + deductible for each option.", "If your employer contributes to the HSA, factor that into the comparison.", "If no employer coverage: go to healthcare.gov, select 'I lost health coverage', browse Bronze or Catastrophic (often HSA-eligible).", "Enroll in your chosen plan before the 60-day deadline."]},
+            {"title": "Step 4: Open HSA and Set Contribution", "time": "~15 min", "items": ["Once enrolled in an HDHP, open your HSA through your benefits portal or a provider (Fidelity, HealthEquity, Lively).", "Set a contribution amount — even $25/month gets your account started."]},
+        ],
         "steps": {
             "gentle": [
                 {"text": "First, breathe — you have 60 days from losing coverage to enroll in a new plan. You are not in immediate crisis.", "time": "~0 min"},
                 {"text": "Find out your exact last day of coverage on your parents' plan.", "time": "~5 min", "sub_steps": [
-                    {"text": "Call the insurance number on the back of your current card, or ask your parent to check with their HR.", "time": "~5 min"},
+                    {"text": "Call the insurance number on the back of your current card, or ask your parent to check with their Human Resources (HR).", "time": "~5 min"},
                     {"text": "Write down this date somewhere. It's your deadline countdown clock.", "time": "~1 min"},
                 ]},
                 {"text": "Check if your job offers health insurance — that's usually the simplest path.", "time": "~5 min", "sub_steps": [
-                    {"text": "Email HR or check your benefits portal. Ask: 'Do you offer health insurance, and can I enroll now due to a qualifying life event?'", "time": "~5 min"},
+                    {"text": "Email Human Resources (HR) or check your benefits portal. Ask: 'Do you offer health insurance, and can I enroll now due to a qualifying life event?'", "time": "~5 min"},
                     {"text": "Aging off a parent's plan counts as a qualifying life event — you don't have to wait for open enrollment.", "time": "~1 min"},
                 ]},
                 {"text": "If your job offers an HDHP option, look into it — this is what lets you open an HSA.", "time": "~5 min", "sub_steps": [
@@ -140,7 +241,7 @@ TASK_LIBRARY = [
                 {"text": "No job coverage? Check healthcare.gov — you qualify for a special enrollment period.", "time": "~10 min"},
             ],
             "medium": [
-                {"text": "Find your exact last day of coverage on your parents' plan. Call the insurer or ask your parent to check with their HR.", "time": "~5 min"},
+                {"text": "Find your exact last day of coverage on your parents' plan. Call the insurer or ask your parent to check with their Human Resources (HR).", "time": "~5 min"},
                 {"text": "Check if your employer offers health insurance. Aging off a parent's plan is a qualifying life event — you can enroll outside open enrollment.", "time": "~5 min"},
                 {"text": "If your employer offers plans, compare them. An HDHP (High-Deductible Health Plan) is what makes you eligible for an HSA.", "time": "~10 min"},
                 {"text": "If no employer coverage: go to healthcare.gov and enter your info. You have 60 days from losing coverage to enroll.", "time": "~15 min"},
@@ -149,7 +250,7 @@ TASK_LIBRARY = [
             "detailed": [
                 {"text": "Call the insurance number on the back of your current card. Ask: 'What is my last day of coverage?'", "time": "~5 min"},
                 {"text": "Write the date down — you have 60 days from that date to get new coverage.", "time": "~1 min"},
-                {"text": "Email your employer's HR: 'I'm losing coverage on my parents' plan on [date]. Do you offer health insurance? Can I enroll now?'", "time": "~5 min"},
+                {"text": "Email your employer's Human Resources (HR): 'I'm losing coverage on my parents' plan on [date]. Do you offer health insurance? Can I enroll now?'", "time": "~5 min"},
                 {"text": "Review the plan options your employer provides. Look for any plan labeled 'HDHP', 'High-Deductible', or 'HSA-eligible'.", "time": "~10 min"},
                 {"text": "Compare the HDHP to other plans: add up (monthly premium × 12) + deductible for each option to see true annual cost.", "time": "~10 min"},
                 {"text": "If your employer contributes to the HSA, factor that into the comparison — it reduces your net cost.", "time": "~5 min"},
@@ -157,14 +258,27 @@ TASK_LIBRARY = [
                 {"text": "On healthcare.gov, select 'I lost health coverage' as your reason for enrolling.", "time": "~2 min"},
                 {"text": "Browse Bronze or Catastrophic plans — these are often HSA-eligible and have lower premiums.", "time": "~10 min"},
                 {"text": "Once enrolled in an HDHP, open your HSA through your benefits portal or a provider like Fidelity, HealthEquity, or Lively.", "time": "~10 min"},
-                {"text": "Set a contribution amount — even $25/month gets your account started and your money growing tax-free.", "time": "~5 min"},
+                {"text": "Set a contribution amount — even \$25/month gets your account started and your money growing tax-free.", "time": "~5 min"},
             ],
         },
     },
     {
         "id": "start_investing",
+        "section": "Contributions & Investing",
         "label": "Start investing my HSA balance",
         "gentle_note": "Most people never do this step — and it's the one that could make the biggest difference over time. You don't need to know much about investing to start.",
+        "sections": [
+            {"title": "Step 1: Log In and Find Investments", "time": "~3 min", "items": ["Log into your HSA provider's app or website.", "Navigate to the 'Investments' or 'Invest' section."]},
+            {"title": "Step 2: Check Minimum and Balance", "time": "~2 min", "items": ["Note the minimum cash balance required to invest (often \$1,000–\$2,000).", "Check your current HSA balance."]},
+            {"title": "Step 3: Choose a Fund", "time": "~5 min", "items": ["Pick a target-date fund (year you turn 65) or index fund (Total Market / S&P 500).", "Check expense ratio — aim for under 0.20%."]},
+            {"title": "Step 4: Set Up Auto-Invest", "time": "~3 min", "items": ["Enable auto-invest so balance above the minimum sweeps into your chosen fund.", "Save your changes."]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Log In and Find Investments", "time": "~3 min", "items": ["Log into your HSA provider's website (find it on your HSA debit card or benefits portal).", "Navigate to 'Investments', 'Invest', or 'Grow My HSA'."]},
+            {"title": "Step 2: Check Minimum and Balance", "time": "~2 min", "items": ["Note the minimum cash balance required to invest (usually $1,000 or $2,000).", "Check your current HSA cash balance. If below minimum, note how far away you are."]},
+            {"title": "Step 3: Choose a Fund", "time": "~10 min", "items": ["Browse available funds. Look for target-date funds or index funds.", "Check the expense ratio (annual fee) — aim for under 0.20%.", "Pick a target-date fund (year you'll turn 65) or a 'Total Market' / 'S&P 500' index fund.", "Enter the amount to move into investments (start with whatever's above your minimum threshold)."]},
+            {"title": "Step 4: Set Up Auto-Invest and Save", "time": "~5 min", "items": ["Find 'Auto-invest' or 'Automatic Transfer' settings. Enable it to sweep balance above the threshold into your chosen fund.", "Save your changes. Your money is now working tax-free.", "Set a calendar reminder to check your investment balance once per quarter."]},
+        ],
         "steps": {
             "gentle": [
                 {"text": "Log into your HSA provider's website or app.", "time": "~2 min", "sub_steps": [
@@ -172,7 +286,7 @@ TASK_LIBRARY = [
                 ]},
                 {"text": "Check your current cash balance and find the 'Invest' or 'Investments' section.", "time": "~3 min", "sub_steps": [
                     {"text": "Look for tabs or links labeled 'Invest', 'Investment Options', or 'Grow My HSA'.", "time": "~2 min"},
-                    {"text": "Your provider will tell you the minimum cash balance required before you can invest — usually $1,000.", "time": "~1 min"},
+                    {"text": "Your provider will tell you the minimum cash balance required before you can invest — usually \$1,000.", "time": "~1 min"},
                 ]},
                 {"text": "If you've hit the minimum, pick a simple starting option — a target-date fund or a broad index fund.", "time": "~5 min", "sub_steps": [
                     {"text": "Target-date funds (e.g. 'Target 2055') are the lowest-stress option — they automatically adjust as you age. Just pick the year closest to when you'd turn 65.", "time": "~3 min"},
@@ -185,7 +299,7 @@ TASK_LIBRARY = [
             ],
             "medium": [
                 {"text": "Log into your HSA provider's app or website and navigate to the 'Investments' section.", "time": "~3 min"},
-                {"text": "Check the minimum cash balance required to invest (usually $1,000–$2,000). Note your current balance.", "time": "~2 min"},
+                {"text": "Check the minimum cash balance required to invest (usually \$1,000–\$2,000). Note your current balance.", "time": "~2 min"},
                 {"text": "If eligible, choose an investment fund. Simplest: target-date fund (year you'll turn 65) or index fund ('Total Market' / 'S&P 500').", "time": "~5 min"},
                 {"text": "Check the fund's expense ratio — lower is better. Aim for under 0.20%.", "time": "~3 min"},
                 {"text": "Enable auto-invest so any amount above your minimum threshold moves into the fund automatically.", "time": "~3 min"},
@@ -193,7 +307,7 @@ TASK_LIBRARY = [
             "detailed": [
                 {"text": "Log into your HSA provider's website. (Find it on your HSA debit card or in your benefits portal.)", "time": "~2 min"},
                 {"text": "Navigate to 'Investments', 'Invest', or 'Grow My HSA'.", "time": "~2 min"},
-                {"text": "Note the minimum cash balance required to invest — usually $1,000 or $2,000.", "time": "~1 min"},
+                {"text": "Note the minimum cash balance required to invest — usually \$1,000 or \$2,000.", "time": "~1 min"},
                 {"text": "Check your current HSA cash balance. If you're below the minimum, note how far away you are.", "time": "~2 min"},
                 {"text": "If you've hit the minimum: browse the available funds. Look for target-date funds or index funds.", "time": "~5 min"},
                 {"text": "For each fund you're considering, check the expense ratio (the annual fee). Lower than 0.20% is good.", "time": "~5 min"},
@@ -208,8 +322,21 @@ TASK_LIBRARY = [
     },
     {
         "id": "use_for_therapy",
+        "section": "Using Your HSA",
         "label": "Use my HSA to pay for therapy or mental health care",
         "gentle_note": "Using your HSA for therapy is one of the most direct ways it supports your whole health — not just physical. This is exactly what it's for.",
+        "sections": [
+            {"title": "Step 1: Confirm It Qualifies", "time": "~1 min", "items": ["Therapy, counseling, psychiatry, and mental health prescriptions all qualify as HSA expenses."]},
+            {"title": "Step 2: Ask How to Pay", "time": "~3 min", "items": ["Ask your therapist or billing: 'Do you accept HSA/FSA cards?'", "Most do — you pay with your HSA debit card like a regular card."]},
+            {"title": "Step 3: Pay or Reimburse", "time": "~5 min", "items": ["Pay with your HSA debit card at the appointment.", "Or pay out of pocket and use your HSA app to reimburse yourself (upload receipt)."]},
+            {"title": "Step 4: Save Your Receipt", "time": "~1 min", "items": ["Keep an itemized receipt — photo or folder — in case the IRS asks."]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Confirm It Qualifies", "time": "~1 min", "items": ["Therapy sessions, counseling, psychiatric appointments, mental health medications, and telehealth mental health visits are all qualified HSA expenses."]},
+            {"title": "Step 2: Ask How to Pay", "time": "~5 min", "items": ["Contact your therapist or their billing department. Ask: 'Do you accept HSA or FSA debit cards?'", "If yes: bring your HSA debit card to your next appointment and pay directly.", "If no, or if you already paid: request an itemized receipt (provider name, date of service, type of service, amount paid)."]},
+            {"title": "Step 3: Pay or Reimburse", "time": "~5 min", "items": ["Log into your HSA provider's website or app.", "Navigate to 'Reimburse Myself', 'Withdraw Funds', or 'Pay Expense'.", "Enter the date of service, provider name, amount, and expense category (Medical / Mental Health).", "Upload a photo of your receipt when prompted.", "Submit. Reimbursement usually arrives in 1–3 business days."]},
+            {"title": "Step 4: Save Your Receipt", "time": "~1 min", "items": ["Save the receipt permanently in a folder (e.g. 'HSA Receipts' in Google Drive, notes app, or email)."]},
+        ],
         "steps": {
             "gentle": [
                 {"text": "Confirm the service qualifies — therapy, counseling, psychiatry, and mental health prescriptions all do.", "time": "~1 min"},
@@ -245,8 +372,21 @@ TASK_LIBRARY = [
     },
     {
         "id": "surprise_medical_bill",
+        "section": "Using Your HSA",
         "label": "Handle a surprise medical bill using my HSA",
         "gentle_note": "Getting a medical bill you weren't expecting is stressful. This is exactly the situation your HSA is built for — let's take it one step at a time.",
+        "sections": [
+            {"title": "Step 1: Verify the Bill", "time": "~10 min", "items": ["Compare the bill to your Explanation of Benefits (EOB) from your insurer.", "If anything looks wrong, call billing for an itemized bill or explanation."]},
+            {"title": "Step 2: Check HSA and Eligibility", "time": "~3 min", "items": ["Log into your HSA provider's app and check your balance.", "Confirm the expense is HSA-qualified (doctor visits, labs, hospital, prescriptions)."]},
+            {"title": "Step 3: Pay or Reimburse", "time": "~10 min", "items": ["Pay with your HSA debit card, or pay another way and reimburse yourself via your HSA.", "If the bill exceeds your balance, ask billing about an interest-free payment plan."]},
+            {"title": "Step 4: Save Records", "time": "~2 min", "items": ["Save the itemized bill and payment confirmation (e.g. in an HSA receipts folder)."]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Verify the Bill", "time": "~10 min", "items": ["Take a breath. Most bills have at least 30 days before due; many have 60–90 days.", "Find the Explanation of Benefits (EOB) from your insurer (mail or online portal).", "Compare the EOB to the bill — amounts should match what your insurer says you owe.", "If they don't match or you don't recognize services: call billing for an itemized bill.", "Ask if the provider has financial assistance or sliding scale discounts."]},
+            {"title": "Step 2: Check HSA and Eligibility", "time": "~3 min", "items": ["Log into your HSA provider's app or website. Check your current balance.", "Confirm the expense is HSA-qualified (doctor visits, hospital, labs, imaging, procedures, prescriptions)."]},
+            {"title": "Step 3: Pay or Reimburse", "time": "~10 min", "items": [{"text": "Option A — Pay with HSA debit card:", "sub": ["Call the billing number and give your HSA card number, or pay online."]}, {"text": "Option B — Reimburse yourself:", "sub": ["Log into your HSA, find 'Reimburse Myself' or 'Distribute Funds', enter the amount and date of service."]}, "If the bill exceeds your HSA balance: contact billing to set up an interest-free payment plan."]},
+            {"title": "Step 4: Save Records", "time": "~2 min", "items": ["Save the itemized bill and payment confirmation in your HSA receipts folder."]},
+        ],
         "steps": {
             "gentle": [
                 {"text": "Don't panic — you almost certainly have time. Medical bills are rarely due immediately.", "time": "~0 min"},
@@ -284,23 +424,36 @@ TASK_LIBRARY = [
     },
     {
         "id": "set_contribution",
+        "section": "Contributions & Investing",
         "label": "Figure out how much to contribute to my HSA",
         "gentle_note": "There's no 'right' answer here that works for everyone. Even a small regular contribution is genuinely worthwhile — it just needs to be whatever doesn't stress your budget.",
+        "sections": [
+            {"title": "Step 1: Know the Limits", "time": "~2 min", "items": ["Look up this year's IRS limit (e.g. 2025: \$4,300 individual / \$8,750 family).", "Add \$1,000 if you're 55 or older."]},
+            {"title": "Step 2: Factor In Employer", "time": "~5 min", "items": ["Check your pay stub or benefits portal for employer HSA contribution.", "Subtract that from the IRS limit to get your max."]},
+            {"title": "Step 3: Choose Your Amount", "time": "~5 min", "items": ["Decide a target (employer match only, a comfortable amount, or max).", "Divide by pay periods (e.g. 26 for biweekly) to get per-paycheck amount."]},
+            {"title": "Step 4: Update Payroll", "time": "~5 min", "items": ["Log into your payroll or benefits portal.", "Enter your HSA contribution amount; save. You can change it anytime."]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Know the Limits", "time": "~2 min", "items": ["Look up the current year's IRS HSA limit (2025: $4,300 individual, $8,750 family).", "Add $1,000 if you're 55 or older."]},
+            {"title": "Step 2: Factor In Employer", "time": "~5 min", "items": ["Check your pay stub or benefits portal for employer HSA contribution (monthly or annual).", "Calculate: IRS limit minus employer contribution = your maximum allowed contribution."]},
+            {"title": "Step 3: Choose Your Amount", "time": "~5 min", "items": ["Review your budget. Decide on a target: (a) employer match only, (b) a comfortable amount, (c) full annual max.", "Divide your target by pay periods (26 biweekly, 24 semi-monthly, 12 monthly) to get per-paycheck amount."]},
+            {"title": "Step 4: Update Payroll", "time": "~5 min", "items": ["Log into your payroll or Human Resources (HR) benefits portal.", "Find the HSA contribution section and enter your per-paycheck amount.", "Save the change. It usually takes 1–2 pay periods to take effect.", "Set a calendar reminder for October to revisit — you can increase to max out before year-end."]},
+        ],
         "steps": {
             "gentle": [
                 {"text": "Check what the IRS limit is for this year.", "time": "~2 min", "sub_steps": [
-                    {"text": "For 2025: $4,300 if you have individual (self-only) coverage. $8,750 if you have a family plan.", "time": "~1 min"},
-                    {"text": "If you're 55 or older, you can add $1,000 more on top of that.", "time": "~1 min"},
+                    {"text": "For 2025: \$4,300 if you have individual (self-only) coverage. \$8,750 if you have a family plan.", "time": "~1 min"},
+                    {"text": "If you're 55 or older, you can add \$1,000 more on top of that.", "time": "~1 min"},
                 ]},
                 {"text": "Check if your employer contributes anything — that counts toward your limit but is free money.", "time": "~5 min"},
                 {"text": "Decide on a per-paycheck amount that won't strain your budget.", "time": "~5 min", "sub_steps": [
                     {"text": "Divide your target annual contribution by the number of paychecks per year (26 for biweekly, 24 for semi-monthly).", "time": "~2 min"},
-                    {"text": "Even $25 per paycheck adds up to $650/year — all tax-free.", "time": "~1 min"},
+                    {"text": "Even $25 per paycheck adds up to \$650/year — all tax-free.", "time": "~1 min"},
                 ]},
                 {"text": "Update your payroll contribution in your benefits portal.", "time": "~5 min"},
             ],
             "medium": [
-                {"text": "Look up the 2025 IRS limit: $4,300 (individual) or $8,750 (family). Add $1,000 if you're 55+.", "time": "~2 min"},
+                {"text": "Look up the 2025 IRS limit: \$4,300 (individual) or \$8,750 (family). Add \$1,000 if you're 55+.", "time": "~2 min"},
                 {"text": "Check your pay stub or benefits portal to see how much your employer contributes. Subtract that from the limit.", "time": "~5 min"},
                 {"text": "Decide your target: anywhere from capturing employer match only, to maxing out the full limit.", "time": "~5 min"},
                 {"text": "Divide by pay periods to get your per-paycheck amount.", "time": "~2 min"},
@@ -308,12 +461,12 @@ TASK_LIBRARY = [
                 {"text": "Note that you can change this anytime — you're not locked in.", "time": "~1 min"},
             ],
             "detailed": [
-                {"text": "Look up the current year's IRS HSA contribution limit. For 2025: $4,300 individual, $8,750 family.", "time": "~2 min"},
+                {"text": "Look up the current year's IRS HSA contribution limit. For 2025: \$4,300 individual, \$8,750 family.", "time": "~2 min"},
                 {"text": "Check your pay stub or benefits portal to see if your employer contributes to your HSA and how much (monthly or annual amount).", "time": "~5 min"},
                 {"text": "Calculate: IRS limit minus employer contribution = your maximum allowed contribution.", "time": "~2 min"},
                 {"text": "Review your budget. Decide on a realistic target — options: (a) just the employer match (if any), (b) a fixed comfortable amount, (c) the full annual max.", "time": "~10 min"},
                 {"text": "Divide your target by your number of pay periods (26 for biweekly, 24 for semi-monthly, 12 for monthly) to get your per-paycheck amount.", "time": "~2 min"},
-                {"text": "Log into your payroll or HR benefits portal.", "time": "~2 min"},
+                {"text": "Log into your payroll or Human Resources (HR) benefits portal.", "time": "~2 min"},
                 {"text": "Find the HSA contribution section and enter your per-paycheck amount.", "time": "~3 min"},
                 {"text": "Save the change. It usually takes 1–2 pay periods to take effect.", "time": "~1 min"},
                 {"text": "Set a calendar reminder for October to revisit — you can increase your contribution if you want to max out before year-end.", "time": "~2 min"},
@@ -322,8 +475,21 @@ TASK_LIBRARY = [
     },
     {
         "id": "use_for_dental_vision",
+        "section": "Using Your HSA",
         "label": "Use my HSA for a dental or vision expense",
         "gentle_note": "A lot of people don't realize HSAs cover dental and vision. This is genuinely one of the most useful day-to-day uses of the account.",
+        "sections": [
+            {"title": "Step 1: Confirm It Qualifies", "time": "~1 min", "items": ["Dental: cleanings, fillings, braces, implants. Vision: exams, glasses, contacts, LASIK.", "Cosmetic-only (e.g. teeth whitening) does not qualify."]},
+            {"title": "Step 2: Ask About HSA Payment", "time": "~2 min", "items": ["Ask the dental or vision office if they accept HSA/FSA cards — most do."]},
+            {"title": "Step 3: Pay or Reimburse", "time": "~5 min", "items": ["Pay with your HSA debit card at checkout.", "Or pay another way and reimburse yourself through your HSA app."]},
+            {"title": "Step 4: Keep Your Receipt", "time": "~1 min", "items": ["Save your itemized receipt."]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Confirm It Qualifies", "time": "~2 min", "items": [{"text": "HSA-eligible:", "sub": ["Dental: cleanings, fillings, extractions, crowns, root canals, braces, dentures, implants", "Vision: eye exams, prescription glasses, contact lenses, solution, LASIK"]}, {"text": "Not eligible:", "sub": ["Teeth whitening", "Non-prescription sunglasses", "Cosmetic-only procedures"]}]},
+            {"title": "Step 2: Ask About HSA Payment", "time": "~3 min", "items": ["Call or check the provider's website. Confirm they accept HSA/FSA cards.", "If yes: bring your HSA debit card and pay at the appointment.", "If no, or you already paid: request an itemized receipt from the provider."]},
+            {"title": "Step 3: Pay or Reimburse", "time": "~5 min", "items": ["Log into your HSA provider's app or website.", "Go to 'Reimburse Myself' or 'Pay Expense'. Enter provider name, date, amount, category (Dental or Vision).", "Upload or attach a photo of your receipt.", "Submit. Reimbursement usually posts in 1–3 business days."]},
+            {"title": "Step 4: Keep Your Receipt", "time": "~1 min", "items": ["Save the receipt in your HSA receipts folder."]},
+        ],
         "steps": {
             "gentle": [
                 {"text": "Confirm the expense qualifies — most dental and vision care does.", "time": "~1 min", "sub_steps": [
@@ -356,8 +522,21 @@ TASK_LIBRARY = [
     },
     {
         "id": "setup_recordkeeping",
+        "section": "Recordkeeping",
         "label": "Set up a simple system for keeping HSA receipts",
         "gentle_note": "Setting this up once takes about 10 minutes and saves a lot of anxiety later. You'll never have to worry about losing a receipt again.",
+        "sections": [
+            {"title": "Step 1: Pick One Place", "time": "~3 min", "items": ["Choose: phone album, email folder, Google Drive, or your HSA provider's receipt vault.", "Name it something clear (e.g. 'HSA Receipts 2025')."]},
+            {"title": "Step 2: Use Provider Storage If Available", "time": "~3 min", "items": ["Check if your HSA app has a receipt storage feature — many do."]},
+            {"title": "Step 3: File Receipts Going Forward", "time": "~1 min", "items": ["Photograph or save every HSA receipt soon after the expense."]},
+            {"title": "Step 4: Backfill Past Receipts (Optional)", "time": "~15 min", "items": ["Gather any existing HSA receipts and file them now.", "Save 1099-SA and 5498-SA when they arrive (Jan/Feb)."]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Pick One Place", "time": "~5 min", "items": ["Log into your HSA provider's app. Check for a built-in 'Receipt Vault' or 'Document Storage' — use it as primary.", "As a backup, create a Google Drive folder 'HSA Receipts' with subfolders per year ('2024', '2025').", "Or use a phone album or email label named 'HSA Receipts 2025'."]},
+            {"title": "Step 2: Know What to Save", "time": "~2 min", "items": ["For every receipt, documentation should show: provider name, date of service, type of service, amount paid. An itemized receipt or EOB covers this.", "Also save HSA tax forms when they arrive: Form 1099-SA (withdrawals) and Form 5498-SA (contributions) in January/February."]},
+            {"title": "Step 3: File Receipts Going Forward", "time": "~1 min", "items": ["Photograph or save every HSA receipt soon after the expense.", "Set a weekly phone reminder to file any receipts you've collected."]},
+            {"title": "Step 4: Backfill Past Receipts (Optional)", "time": "~15 min", "items": ["Go through your phone's camera roll and email for past HSA-related receipts. Photograph or forward them to your storage now.", "You don't need to submit receipts to the IRS — just have them in case you're ever asked."]},
+        ],
         "steps": {
             "gentle": [
                 {"text": "Pick one place to store receipts — a phone folder, email label, or Google Drive folder.", "time": "~3 min", "sub_steps": [
@@ -388,12 +567,25 @@ TASK_LIBRARY = [
     },
     {
         "id": "open_enrollment_prep",
+        "section": "Getting Started / Eligibility",
         "label": "Understand my HSA options before open enrollment",
         "gentle_note": "Open enrollment is one of those things that feels more overwhelming than it is. The goal here is just to get you enough information to make a confident choice — not a perfect one.",
+        "sections": [
+            {"title": "Step 1: Get Plan Options", "time": "~5 min", "items": ["Log into your benefits portal or open the Human Resources (HR) open enrollment email.", "List plan options; find any labeled 'HDHP' or 'HSA-eligible'."]},
+            {"title": "Step 2: Gather the Numbers", "time": "~10 min", "items": ["For each plan: monthly premium, deductible, out-of-pocket max.", "Check if your employer contributes to the HSA and how much."]},
+            {"title": "Step 3: Compare Real Cost", "time": "~10 min", "items": ["Estimate your expected medical spending.", "Calculate: (annual premium) + (expected out-of-pocket) − (employer HSA contribution)."]},
+            {"title": "Step 4: Choose and Enroll", "time": "~5 min", "items": ["Pick your plan and submit before the deadline.", "If you chose the HDHP, open or activate your HSA."]},
+        ],
+        "sections_detailed": [
+            {"title": "Step 1: Get Plan Options", "time": "~5 min", "items": ["Log into your benefits portal and download this year's plan comparison document.", "For each plan, record: plan type (HMO/PPO/HDHP), monthly premium, annual deductible, out-of-pocket maximum, and whether it's HSA-eligible."]},
+            {"title": "Step 2: Gather the Numbers", "time": "~10 min", "items": ["Check whether your employer contributes to the HSA and how much (benefits guide or Human Resources (HR) summary).", "Look up your medical usage last year: doctor visits, prescriptions, procedures, dental and vision.", "Estimate next year's expected medical costs as low/medium/high."]},
+            {"title": "Step 3: Compare Real Cost", "time": "~10 min", "items": ["For the HDHP: calculate (annual premium) + (estimated medical spending, up to deductible) − (employer HSA contribution).", "For the traditional PPO: calculate (annual premium) + (estimated copays and coinsurance).", "Compare totals. For most healthy adults, the HDHP wins once employer contribution is factored in.", "Confirm the HDHP uses the same doctor network as the PPO (call your doctor's office if unsure)."]},
+            {"title": "Step 4: Choose and Enroll", "time": "~5 min", "items": ["Submit your plan selection in the benefits portal before the open enrollment deadline.", "If you chose the HDHP: immediately plan to open or activate your HSA."]},
+        ],
         "steps": {
             "gentle": [
                 {"text": "Find out which plans your employer is offering this year.", "time": "~5 min", "sub_steps": [
-                    {"text": "Log into your benefits portal or look for the open enrollment email from HR.", "time": "~5 min"},
+                    {"text": "Log into your benefits portal or look for the open enrollment email from Human Resources (HR).", "time": "~5 min"},
                     {"text": "List the plan options — you're looking for at least one labeled 'HDHP' or 'HSA-eligible'.", "time": "~2 min"},
                 ]},
                 {"text": "For each plan, find three numbers: monthly premium, deductible, and employer HSA contribution (if any).", "time": "~10 min"},
@@ -404,7 +596,7 @@ TASK_LIBRARY = [
                 {"text": "Make your choice. You can revisit this next year.", "time": "~5 min"},
             ],
             "medium": [
-                {"text": "Find this year's plan options in your benefits portal or HR open enrollment email.", "time": "~5 min"},
+                {"text": "Find this year's plan options in your benefits portal or Human Resources (HR) open enrollment email.", "time": "~5 min"},
                 {"text": "For each plan, write down: monthly premium, annual deductible, out-of-pocket maximum, and whether it's HSA-eligible.", "time": "~10 min"},
                 {"text": "Check if your employer contributes to the HSA and how much — this directly reduces the HDHP's effective cost.", "time": "~5 min"},
                 {"text": "Estimate your likely medical spending for the year. If you're generally healthy, the HDHP often costs less total.", "time": "~5 min"},
@@ -414,7 +606,7 @@ TASK_LIBRARY = [
             "detailed": [
                 {"text": "Log into your benefits portal and download the plan comparison document for this year.", "time": "~5 min"},
                 {"text": "For each plan option, record: plan type (HMO/PPO/HDHP), monthly premium, annual deductible, out-of-pocket maximum, and whether it's HSA-eligible.", "time": "~10 min"},
-                {"text": "Check whether your employer contributes to the HSA, and how much. This is usually in the benefits guide or HR summary.", "time": "~5 min"},
+                {"text": "Check whether your employer contributes to the HSA, and how much. This is usually in the benefits guide or Human Resources (HR) summary.", "time": "~5 min"},
                 {"text": "Look up your medical usage last year: how many doctor visits, prescriptions, procedures, dental and vision costs.", "time": "~5 min"},
                 {"text": "Estimate next year's expected medical costs as low/medium/high.", "time": "~5 min"},
                 {"text": "For the HDHP option: calculate (annual premium) + (estimated medical spending, up to deductible) − (employer HSA contribution).", "time": "~10 min"},
@@ -437,13 +629,21 @@ def get_task_by_id(task_id: str) -> dict | None:
     return None
 
 
-def get_task_labels() -> list[tuple[str, str]]:
-    """Return [(id, label), ...] for the scenario dropdown."""
+def get_task_labels(section: str | None = None) -> list[tuple[str, str]]:
+    """Return [(id, label), ...] for the scenario dropdown. If section is set, only tasks in that section."""
+    if section:
+        return [(t["id"], t["label"]) for t in TASK_LIBRARY if t.get("section") == section]
     return [(t["id"], t["label"]) for t in TASK_LIBRARY]
 
 
+def get_section_for_task_id(task_id: str) -> str | None:
+    """Return the section name for a task id, or None."""
+    t = get_task_by_id(task_id)
+    return t.get("section") if t else None
+
+
 def flatten_steps(steps_list: list) -> list[str]:
-    """Turn a list of steps (with optional sub_steps) into a flat list of display strings: 'text (time)' and '  → sub_text (sub_time)'."""
+    """Turn a list of steps (with optional sub_steps) into a flat list of display strings: 'text (time)' and '  sub_text (sub_time)'."""
     flat = []
     for step in steps_list:
         if isinstance(step, dict):
@@ -455,7 +655,7 @@ def flatten_steps(steps_list: list) -> list[str]:
             for sub in step.get("sub_steps") or []:
                 st = sub.get("text", "")
                 tt = sub.get("time", "")
-                sub_line = f"  → {st} ({tt})" if tt else f"  → {st}"
+                sub_line = f"  {st} ({tt})" if tt else f"  {st}"
                 if st:
                     flat.append(sub_line)
         else:
