@@ -175,11 +175,11 @@ def get_result(scenario_id: str, answers: dict[str, str]) -> dict[str, Any]:
         if q0 == "parent":
             return {"headline": "It depends on whether your parent's plan is HSA-qualified.", "body": "Being on a parent's plan doesn't automatically disqualify you — it depends on the specific plan type. Ask your parent to check if their plan is labeled HDHP or HSA-eligible.", "learn_more_topic_id": "eligibility"}
         if q0 in ("employer", "own") and q1 == "hdhp":
-            return {"headline": "You're likely eligible.", "body": "Your plan sounds HSA-qualified. The next step is confirming with HR and opening your account — it usually takes about 10 minutes online.", "next_task_id": "open_hsa", "learn_more_topic_id": None}
+            return {"headline": "You're likely eligible.", "body": "Your plan sounds HSA-qualified. The next step is confirming with Human Resources (HR) and opening your account — it usually takes about 10 minutes online.", "next_task_id": "open_hsa", "learn_more_topic_id": None}
         if q0 == "employer" and q1 == "ppo":
-            return {"headline": "Your plan probably doesn't qualify — but it's worth confirming.", "body": "PPO and HMO plans typically don't qualify for an HSA. Ask HR: 'Is my plan HSA-eligible?' — they get this question often.", "next_task_id": "check_eligibility", "learn_more_topic_id": None}
+            return {"headline": "Your plan probably doesn't qualify — but it's worth confirming.", "body": "PPO and HMO plans typically don't qualify for an HSA. Ask Human Resources (HR): 'Is my plan HSA-eligible?' — they get this question often.", "next_task_id": "check_eligibility", "learn_more_topic_id": None}
         if q0 == "employer" and q1 == "unsure":
-            return {"headline": "Easy way to check: look at your insurance card.", "body": "Find your plan name on your insurance card or in your benefits email. Look for 'HDHP' or 'HSA-eligible' anywhere in the name. Still unsure? Text HR.", "next_task_id": "check_eligibility", "learn_more_topic_id": None}
+            return {"headline": "Easy way to check: look at your insurance card.", "body": "Find your plan name on your insurance card or in your benefits email. Look for 'HDHP' or 'HSA-eligible' anywhere in the name. Still unsure? Text Human Resources (HR).", "next_task_id": "check_eligibility", "learn_more_topic_id": None}
         if q0 == "own" and q1 == "hdhp":
             return {"headline": "You're likely eligible.", "body": "Bronze and Catastrophic ACA plans are often HSA-qualified. Confirm by checking your plan's Summary of Benefits for the annual deductible — it needs to be at least $1,650 for 2025.", "next_task_id": "open_hsa", "learn_more_topic_id": None}
         return {"headline": "Check your plan details.", "body": "Look for HDHP or HSA-eligible on your plan name or ask your provider.", "next_task_id": "check_eligibility", "learn_more_topic_id": "eligibility"}
