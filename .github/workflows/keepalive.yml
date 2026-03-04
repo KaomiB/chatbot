@@ -1,0 +1,23 @@
+# Ping the Streamlit app every 6 hours so it doesn't spin down (Community Cloud free tier).
+# Replace YOUR_APP_URL below with your real URL, e.g. https://chatbot-xxxx.streamlit.app
+
+name: Keep Streamlit app awake
+
+on:
+  schedule:
+    # Every 6 hours (at 0:00, 6:00, 12:00, 18:00 UTC)
+    - cron: "0 */6 * * *"
+  workflow_dispatch: # Allow manual run from Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Streamlit app
+        run: |
+          APP_URL="${{ vars.STREAMLIT_APP_URL }}"
+          if [ -z "$APP_URL" ]; then
+            echo "Set STREAMLIT_APP_URL in repo Variables (Settings -> Secrets and variables -> Actions)."
+            exit 1
+          fi
+          curl -sf --max-time 60 "$APP_URL" -o /dev/null || true
