@@ -1,23 +1,85 @@
 # Ping the Streamlit app every 6 hours so it doesn't spin down (Community Cloud free tier).
-# Replace YOUR_APP_URL below with your real URL, e.g. https://chatbot-xxxx.streamlit.app
+# When the app is sleeping we can notify you. Options (pick one or more):
+#
+# 1. GITHUB EMAIL (no setup)
+#    The workflow fails when the app is sleeping, so GitHub sends a "Workflow failed" email
+#    to anyone with Actions notifications (Settings → Notifications → Actions).
+#
+# 2. WEBHOOK (Slack, Discord, Telegram, etc.)
+#    Add secret SLEEP_ALERT_WEBHOOK_URL with your webhook URL.
+#    Telegram: create a bot with @BotFather, then get chat ID and use
+#    https://api.telegram.org/bot<TOKEN>/sendMessage (or use a Telegram-to-webhook bridge).
+#
+# 3. GITHUB ISSUE
+#    Set variable CREATE_ISSUE_ON_SLEEP = true to open a repo issue when sleeping
+#    (you get an issue notification email).
 
 name: Keep Streamlit app awake
 
 on:
   schedule:
-    # Every 6 hours (at 0:00, 6:00, 12:00, 18:00 UTC)
     - cron: "0 */6 * * *"
-  workflow_dispatch: # Allow manual run from Actions tab
+  workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit app
+      - uses: actions/checkout@v4
+
+      - name: Ping and check if app is sleeping
+        id: check
         run: |
           APP_URL="${{ vars.STREAMLIT_APP_URL }}"
           if [ -z "$APP_URL" ]; then
             echo "Set STREAMLIT_APP_URL in repo Variables (Settings -> Secrets and variables -> Actions)."
             exit 1
           fi
-          curl -sf --max-time 60 "$APP_URL" -o /dev/null || true
+          curl -sL --max-time 60 "$APP_URL" -o response.html || true
+          if grep -qi "gone to sleep\|Zzzz\|get this app back up" response.html 2>/dev/null; then
+            echo "sleeping=true" >> $GITHUB_OUTPUT
+          else
+            echo "sleeping=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Notify via webhook (optional)
+        if: steps.check.outputs.sleeping == 'true'
+        env:
+          WEBHOOK: ${{ secrets.SLEEP_ALERT_WEBHOOK_URL }}
+        run: |
+          if [ -n "$WEBHOOK" ]; then
+            APP_URL="${{ vars.STREAMLIT_APP_URL }}"
+            MSG="Streamlit app is sleeping. Open the app and click 'Get this app back up' if needed. $APP_URL"
+            curl -sS -X POST -H "Content-Type: application/json" \
+              -d "{\"text\": \"$MSG\", \"content\": \"$MSG\"}" "$WEBHOOK" || true
+          fi
+
+      - name: Create GitHub Issue when sleeping (optional)
+        if: steps.check.outputs.sleeping == 'true' && vars.CREATE_ISSUE_ON_SLEEP == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Streamlit app is sleeping',
+              body: `The app may have spun down. Someone can open it and click "Get this app back up".\n\n${process.env.APP_URL || 'Check STREAMLIT_APP_URL variable.'}`,
+              labels: ['streamlit-sleep']
+            });
+        env:
+          APP_URL: ${{ vars.STREAMLIT_APP_URL }}
+
+      - name: Wake app (click "Get this app back up")
+        if: steps.check.outputs.sleeping == 'true'
+        run: |
+          npm init -y
+          npm install playwright
+          npx playwright install chromium
+          STREAMLIT_APP_URL="${{ vars.STREAMLIT_APP_URL }}" node .github/scripts/wake-streamlit.mjs
+        working-directory: ${{ github.workspace }}
+
+      - name: Fail so GitHub sends failure email
+        if: steps.check.outputs.sleeping == 'true'
+        run: |
+          echo "App was sleeping (wake step ran). Enable Actions notifications to get an email when this happens."
+          exit 1

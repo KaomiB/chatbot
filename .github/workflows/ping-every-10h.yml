@@ -1,0 +1,22 @@
+# Simple ping every ~10 hours to generate activity and help keep the app awake.
+# Runs at 00:00, 10:00, 20:00 UTC. Uses same STREAMLIT_APP_URL variable as keepalive.
+
+name: Ping app every 10 hours
+
+on:
+  schedule:
+    - cron: "0 0,10,20 * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Visit app URL
+        run: |
+          APP_URL="${{ vars.STREAMLIT_APP_URL }}"
+          if [ -z "$APP_URL" ]; then
+            echo "Set STREAMLIT_APP_URL in repo Variables (Settings -> Secrets and variables -> Actions)."
+            exit 1
+          fi
+          curl -sL --max-time 90 "$APP_URL" -o /dev/null && echo "Ping OK" || true
