@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"name": "chatbot",
+			"path": "."
+		},
+		{
+			"name": "Website with Taskbar Navigation",
+			"path": "../Website with Taskbar Navigation"
+		},
+		{
+			"name": "General template page",
+			"path": "../General template page"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "chatbot"
+	}
+}

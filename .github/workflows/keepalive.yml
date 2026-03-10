@@ -36,7 +36,9 @@ jobs:
             exit 1
           fi
           curl -sL --max-time 60 "$APP_URL" -o response.html || true
-          if grep -qi "gone to sleep\|Zzzz\|get this app back up" response.html 2>/dev/null; then
+          if [ ! -s response.html ]; then
+            echo "sleeping=true" >> $GITHUB_OUTPUT
+          elif grep -qi "gone to sleep\|Zzzz\|get this app back up" response.html 2>/dev/null; then
             echo "sleeping=true" >> $GITHUB_OUTPUT
           else
             echo "sleeping=false" >> $GITHUB_OUTPUT
@@ -50,8 +52,8 @@ jobs:
           if [ -n "$WEBHOOK" ]; then
             APP_URL="${{ vars.STREAMLIT_APP_URL }}"
             MSG="Streamlit app is sleeping. Open the app and click 'Get this app back up' if needed. $APP_URL"
-            curl -sS -X POST -H "Content-Type: application/json" \
-              -d "{\"text\": \"$MSG\", \"content\": \"$MSG\"}" "$WEBHOOK" || true
+            BODY=$(jq -n --arg text "$MSG" --arg content "$MSG" '{text: $text, content: $content}')
+            curl -sS -X POST -H "Content-Type: application/json" -d "$BODY" "$WEBHOOK" || true
           fi
 
       - name: Create GitHub Issue when sleeping (optional)

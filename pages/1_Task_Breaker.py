@@ -194,7 +194,7 @@ else:
         for i, step in enumerate(steps):
             st.checkbox(step, key=f"task_step_{i}")
 
-st.caption("**Next:** Explore HSA topics → **HSA topics** · Ask in your own words → **AI Chat** (sidebar).")
+st.caption("**Next:** Explore HSA topics → **HSA topics** (ask in your own words there).")
 
 # Sidebar: preferences + tips
 with st.sidebar:
