@@ -149,7 +149,7 @@ def _next_is_popular_only(next_ids: list[str]) -> bool:
 # Page config and title (topics/facts, not chat)
 st.set_page_config(page_title="Explore HSA by topic", page_icon="📋")
 
-# Sidebar "Go to topic" button + header block (match healandsave-all-palettes: .m-tag / .m-title)
+# Sidebar "Go to topic" button (brand pink); title uses native Streamlit theming for light/dark/embed
 st.markdown(
     """
     <style>
@@ -157,16 +157,18 @@ st.markdown(
         background-color: #FFB8D1 !important;
         color: #1e1e1e !important;
     }
-    .m-tag { font-size: 0.90rem; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.4; margin-bottom: 4px; }
-    .m-title {font-size: 2.5rem; font-weight: 700; line-height: 1.2; margin-bottom: 4px; }
+    @media (prefers-color-scheme: dark) {
+        [data-testid="stSidebar"] .stButton > button {
+            background-color: #e8a0be !important;
+            color: #141920 !important;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True,
 )
-st.markdown(
-    '<div class="m-tag">Explore</div><div class="m-title">HSA by Topic</div>',
-    unsafe_allow_html=True,
-)
+st.caption("EXPLORE")
+st.title("HSA by Topic")
 st.caption("Browse at your own pace & find answers instantly. No sign-up needed.")
 
 # Session state: list of {role, content, citations?, topic_id?, source?}; source = curated | knowledge_base | ai

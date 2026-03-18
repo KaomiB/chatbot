@@ -54,6 +54,17 @@ st.markdown(
     [data-testid="stSidebar"] [data-testid="stAlert"] p {
         color: #1A2028 !important;
     }
+    @media (prefers-color-scheme: dark) {
+        [data-testid="stSidebar"] [data-testid="stAlert"] {
+            color: #f0e6d2 !important;
+            background-color: #3d3420 !important;
+            border-left: 4px solid #c4a574;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        [data-testid="stSidebar"] [data-testid="stAlert"] p {
+            color: #f0e6d2 !important;
+        }
+    }
     </style>
     """,
     unsafe_allow_html=True,
