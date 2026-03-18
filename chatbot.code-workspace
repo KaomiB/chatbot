@@ -5,12 +5,8 @@
 			"path": "."
 		},
 		{
-			"name": "Website with Taskbar Navigation",
-			"path": "../Website with Taskbar Navigation"
-		},
-		{
-			"name": "General template page",
-			"path": "../General template page"
+			"name": "heal-and-save-website",
+			"path": "../heal-and-save-website"
 		}
 	],
 	"settings": {

@@ -29,4 +29,12 @@ See [GETTING_STARTED.md](GETTING_STARTED.md) for more detail.
 
 For **Explore page** (closest-topic matching uses local embeddings; optional retrieval/AI uses `OPENAI_API_KEY`) and **Task Breaker** (custom task breakdown), create `.streamlit/secrets.toml` (never commit it). Copy from `.streamlit/secrets.toml.example` and add your key.
 
+## Local dark-mode screenshot (optional)
+
+```bash
+bash scripts/capture-dark-streamlit-screenshot.sh
+```
+
+Writes **`screenshots/dark-streamlit-hsa.png`** (folder is gitignored). Override URL with `STREAMLIT_DARK_URL=...` for a local dev server.
+
 #testing
